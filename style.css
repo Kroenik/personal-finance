@@ -46,9 +46,15 @@ button {
     margin-bottom: 15px;
     width: 100px;
     /*box-shadow: 1px 1px 3px white;*/
+
 }
 
-h1{
+img {
+    width: 100;
+    background-color: transparent !important;
+}
+
+h1 {
     font-family: arial, Helvetica, sans-serif;
     font-size: 7em;
     color: #ffffff;
