@@ -1,0 +1,6 @@
+# Kommentare abrufen
+GET http://localhost:5050/comments HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+###
