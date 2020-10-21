@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("website"));
 
 var transactionsFilePath = path.join(__dirname, "transactions.json");
 var commentsDefaultFilePath = path.join(__dirname, "comments_default.json");
