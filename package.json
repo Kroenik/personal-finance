@@ -2,9 +2,9 @@
   "name": "personalfinance",
   "version": "1.0.0",
   "description": "A tool to keep on track with your money transactions",
-  "main": "api.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon api.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Henrik Volmari, Niklas Kröning",
