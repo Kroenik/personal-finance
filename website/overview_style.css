@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: arial, Arial, Helvetica, sans-serif;
+  letter-spacing: 3px;
 }
 
 #main_grid {
@@ -37,7 +38,68 @@ main {
   grid-template-areas: "input statistics";
 }
 #input {
-  border-color: 5px #ffffff;
+  padding: 1rem;
+}
+#input_note,
+#input_expense,
+#input_profit,
+#input_amount,
+#input_category,
+#input_add {
+  height: 30px;
+  width: 100%;
+  outline: none;
+  resize: none;
+  margin-bottom: 1rem;
+  font-size: large;
+}
+#input_amount {
+  margin-top: 1rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ADD Button */
+#input_add {
+  background-color: transparent;
+  border: 1px solid white;
+  color: #fff;
+  font-size: large;
+  transition: all 0.2s;
+  align-items: center;
+  cursor: pointer;
+}
+#input_add:hover {
+  background-color: rgb(169, 206, 206);
+}
+#input_add:active {
+  background-color: rgb(78, 153, 153);
+}
+
+/* Change Profit/Expense */
+.type::after {
+  content: "expense";
+  background-color: red;
+  font-size: large;
+}
+#input_type:checked ~ .type::after {
+  content: "profit";
+  background-color: green;
+}
+#input_type + label {
+  background-color: red;
+  font-size: large;
+  cursor: pointer;
+}
+#input_type:checked + label {
+  background-color: green;
+}
+.visually-hidden {
+  display: none;
 }
 
 button {
@@ -51,7 +113,6 @@ button {
   margin: 0.5rem;
   margin-bottom: 15px;
   width: 100px;
-  /*box-shadow: 1px 1px 3px white;*/
 }
 
 h3 {
