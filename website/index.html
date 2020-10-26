@@ -10,9 +10,21 @@
     <div id="grid-container">
       <header>
         <!-- <img src="./images/Logo_MoneyMan.png" alt="MoneyMan Logo"> -->
-        <button>Register</button>
+        <button onClick="on()">Register</button>
         <button>Login</button>
       </header>
+      <div id="overlay">
+        <div id="background-overlay">
+          <form action="">
+            <h3>Create Account</h1>
+
+            <input type="text" name="name" placeholder="Name" />
+            <input type="password" name="password" placeholder="Password" />
+            <input type="password" name="password-repeat" placeholder="Repeat Password"
+            <button>SignUp</button>
+          </form>
+        </div>
+      </div>
       <main>
         <h1>
           The easy way <br />
@@ -23,5 +35,6 @@
         <p>Made in northern Germany with ❤️ ⚓️</p>
       </footer>
     </div>
+    <script src="scriptIndex.js"></script>
   </body>
 </html>

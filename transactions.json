@@ -1,1 +1,4 @@
-[{"title":"HGB","amount":"8,90","type":"expens","category":"education"},{"title":"Cinema","amount":"20","type":"Expense","category":"entertainment"}]
+[
+  { "title": "HGB", "amount": "8,90", "type": "expense", "category": "education" },
+  { "title": "Cinema", "amount": "20", "type": "Expense", "category": "entertainment" }
+]
