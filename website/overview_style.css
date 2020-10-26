@@ -40,9 +40,8 @@ main {
 #input {
   padding: 1rem;
 }
-#input_note,
-#input_expense,
-#input_profit,
+#input_title,
+.type_switch,
 #input_amount,
 #input_category,
 #input_add {
@@ -52,9 +51,6 @@ main {
   resize: none;
   margin-bottom: 1rem;
   font-size: large;
-}
-#input_amount {
-  margin-top: 1rem;
 }
 
 input::-webkit-outer-spin-button,
@@ -81,22 +77,38 @@ input::-webkit-inner-spin-button {
 }
 
 /* Change Profit/Expense */
-.type::after {
-  content: "expense";
-  background-color: red;
-  font-size: large;
+.type_switch {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 30px;
 }
-#input_type:checked ~ .type::after {
-  content: "profit";
-  background-color: green;
-}
-#input_type + label {
-  background-color: red;
-  font-size: large;
+.type {
+  position: absolute;
   cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(250, 128, 128);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
-#input_type:checked + label {
-  background-color: green;
+.type::before {
+  white-space: pre;
+  content: "expense                \293D  ";
+  display: block;
+  width: 100%;
+  text-align: right;
+  margin-top: 2px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+#input_type:checked + .type {
+  background-color: rgb(132, 247, 132);
+}
+#input_type:checked + .type::before {
+  content: "profit                  \293C  ";
 }
 .visually-hidden {
   display: none;
