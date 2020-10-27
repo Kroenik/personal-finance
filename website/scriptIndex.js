@@ -26,8 +26,8 @@ async function getTransactions() {
   const res = await fetch("http://localhost:3000/transactions");
   const transactions = await res.json();
 
-  const transactionsPosition = document.querySelector("#statistics h3");
-  renderComments(transactionsPosition, transactions);
+  const transactionsPosition = document.querySelector("#transactions");
+  renderTransactions(transactionsPosition, transactions);
 }
 
 function renderTransactions(position, transactionsData) {
@@ -39,14 +39,18 @@ function renderTransactions(position, transactionsData) {
 
 function createTransaction(data) {
   const transactionDiv = document.createElement("div");
+  transactionDiv.classList.add("transaction");
   const amountP = document.createElement("p");
+  amountP.classList.add("amount");
   const categoryP = document.createElement("p");
+  categoryP.classList.add("category");
   const titleP = document.createElement("p");
+  titleP.classList.add("title");
 
   transactionDiv.appendChild(amountP);
   transactionDiv.appendChild(categoryP);
   transactionDiv.appendChild(titleP);
-  amountP.textContent = data.amount;
+  amountP.textContent = data.amount + "€";
   categoryP.textContent = data.category;
   titleP.textContent = data.title;
 
@@ -64,7 +68,7 @@ function onAddButton(event) {
 
   if (!inputTitle || !inputAmount) {
     alert("Watch out! - The title and/or amount is missing.");
-  } else if (inputNote.length > 20) {
+  } else if (inputTitle.length > 20) {
     alert("Watch out! - The title is too long (max=20digits).");
   } else {
     postToJson({
@@ -82,13 +86,14 @@ async function postToJson(obj) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      //Authorization: Bearer,
     },
     body: JSON.stringify(obj),
   });
 
-  const currentTransactions = document.querySelector("#statistics h3");
+  const currentTransactions = document.querySelector("#transactions");
   clearChildren(currentTransactions);
-  getComments();
+  getTransactions();
 }
 
 function clearChildren(element) {
