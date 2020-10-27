@@ -18,10 +18,11 @@
           <form action="">
             <h3>Create Account</h1>
 
-            <input type="text" name="name" placeholder="Name" />
-            <input type="password" name="password" placeholder="Password" />
-            <input type="password" name="password-repeat" placeholder="Repeat Password"
-            <button>SignUp</button>
+            <input id="reg-username" type="text" name="usernmae" placeholder="Username" />
+            <input id="reg-password" type="password" name="password" placeholder="Password" />
+            <input id="rep-password" type="password" name="password-repeat" placeholder="Repeat Password">
+            <button onClick="registerUser(event)">SignUp</button>
+            <button onClick="off()">Close</button>
           </form>
         </div>
       </div>
@@ -32,7 +33,7 @@
         </h1>
       </main>
       <footer>
-        <p>Made in northern Germany with ❤️ ⚓️</p>
+        <p><a href="overview.html">Made in northern Germany with ❤️ ⚓️</a></p>
       </footer>
     </div>
     <script src="scriptIndex.js"></script>

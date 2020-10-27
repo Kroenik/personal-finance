@@ -11,38 +11,47 @@ app.use(express.json());
 app.use(express.static("website"));
 
 var transactionsFilePath = path.join(__dirname, "transactions.json");
-//var commentsDefaultFilePath = path.join(__dirname, "comments_default.json");
+var usersFilePath = path.join(__dirname, "users.json");
 
-let users = [];
 app.post("/register", (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
+  req.body.password = crypto.pbkdf2Sync(req.body.password, "qwertzuioplkjhgfdsayxcvbnm", 100000, 64, "sha512").toString("hex");
 
-  if (typeof username !== "string" || !username) {
-    res.status(400).json({ error: "Username is not provided or not a string. Please provide a valid username" });
-  } else if (typeof password !== "string" || !password) {
-    res.status(400).json({ error: "Password is not provided or not a string. Please provide a valid password" });
-  } else {
-    const passwordDerivative = crypto.pbkdf2Sync(password, "qwertzuioplkjhgfdsayxcvbnm", 100000, 64, "sha512").toString("hex");
-
-    users.push({ username, passwordDerivative });
-    res.status(201).json({ created: "User has been created" });
-  }
+  fs.readFile(usersFilePath, (err, buffer) => {
+    const existing = JSON.parse(buffer.toString());
+    existing.push(req.body);
+    fs.writeFile(usersFilePath, JSON.stringify(existing), () => {
+      res.sendStatus(200);
+    });
+  });
 });
 
 app.post("/login", (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
+  //create user object with request data
+  const user = { username: req.body.username, password: crypto.pbkdf2Sync(req.body.password, "qwertzuioplkjhgfdsayxcvbnm", 100000, 64, "sha512").toString("hex") };
 
-  const user = {
-    id: 1,
-    username: "Tester",
-    mail: "tester@testmail.com",
-  };
-
-  jwt.sign({ user: user }, "secretkey", (err, token) => {
-    res.json({ token: token });
+  fs.readFile(usersFilePath, (err, buffer) => {
+    //get registered user from json
+    let regUsers = JSON.parse(buffer.toString());
+    //check if there is matching username and password with input data
+    let matchingData = regUsers.filter((regUser) => regUser.username === user.username && regUser.password === user.password);
+    if (matchingData.length >= 1) {
+      jwt.sign({ user: user }, "secretkey", (err, token) => {
+        for (let i = 0; i < regUsers.length; i++) {
+          if (regUsers[i].username === user.username) {
+            regUsers[i].token = token;
+            console.log(regUsers);
+            fs.writeFile(usersFilePath, JSON.stringify(regUsers), () => {
+              res.sendStatus(200);
+            });
+          }
+        }
+      });
+      //res.status(200).json({ OK: "Login was succesful" });
+    } else {
+      res.status(401).json({ unauthorized: "Username or password was invalid" });
+    }
   });
+
   /*
   if (typeof username !== "string" || username === undefined) {
     res.status(400).json({ error: "Username is not provided or not a string. Please provide a valid username" });
