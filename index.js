@@ -72,17 +72,19 @@ app.post("/login", (req, res) => {
   }*/
 });
 
-app.get("/transactions", verifyToken, (req, res) => {
-  jwt.verify(req.token, "secretkey", (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      fs.readFile(transactionsFilePath, (err, buffer) => {
-        res.json(JSON.parse(buffer.toString()));
-      });
-    }
+app.get("/transactions", (req, res) => {
+  // jwt.verify(req.token, "secretkey", (err, authData) => {
+  //   if (err) {
+  //     res.sendStatus(403);
+  //   } else {
+  fs.readFile(transactionsFilePath, (err, buffer) => {
+    res.json(JSON.parse(buffer.toString()));
   });
+  //}
+  //});
 });
+
+//verifyToken,
 
 app.post("/transactions", (req, res) => {
   // if (!req.body.title || !req.body.content || !req.body.username) {

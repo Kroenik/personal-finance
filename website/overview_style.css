@@ -30,16 +30,24 @@ main {
 footer {
   grid-area: footer;
   background: #a3d2ca;
+  text-align: center;
+  font-size: small;
 }
+
+/* Overview-Page START*/
 
 main {
   display: grid;
   grid-template-columns: 30% 70%;
   grid-template-areas: "input statistics";
 }
-#input {
-  padding: 1rem;
+#input,
+#statistics {
+  padding: 5px;
 }
+
+/* Input Left-Side*/
+
 #input_title,
 .type_switch,
 #input_amount,
@@ -132,10 +140,42 @@ h3 {
   color: #ffffff;
   text-align: center;
 }
-p,
+
+/* Statistics Right-Side */
+
+#statistics {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-areas: "categories-side transactions-side";
+}
+
+.transaction {
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-style: none none solid none;
+  border-width: 1px;
+  background-color: #5eaaa85b;
+  font-size: 0, 8em;
+  text-align: left;
+}
+.amount {
+  margin: 1px;
+  font-size: large;
+  color: rgb(255, 0, 0);
+}
+.category {
+  margin: 1px;
+  padding-left: 10px;
+}
+.title {
+  margin: 1px;
+  font-size: small;
+  padding-left: 10px;
+  opacity: 0.5;
+}
 h4 {
-  text-align: center;
-  font-size: 0.5em;
   color: white;
-  padding-top: 2em;
+  text-align: center;
 }
