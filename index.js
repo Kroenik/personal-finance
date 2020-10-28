@@ -13,7 +13,13 @@ app.use(express.static("website"));
 var transactionsFilePath = path.join(__dirname, "transactions.json");
 var usersFilePath = path.join(__dirname, "users.json");
 
-app.post("/register", (req, res) => {
+app.get("/users", (req, res) => {
+  fs.readFile(usersFilePath, (err, buffer) => {
+    res.json(JSON.parse(buffer.toString()));
+  });
+});
+
+app.post("/users", (req, res) => {
   req.body.password = crypto.pbkdf2Sync(req.body.password, "qwertzuioplkjhgfdsayxcvbnm", 100000, 64, "sha512").toString("hex");
 
   fs.readFile(usersFilePath, (err, buffer) => {
@@ -36,16 +42,9 @@ app.post("/login", (req, res) => {
     let matchingData = regUsers.filter((regUser) => regUser.username === user.username && regUser.password === user.password);
     if (matchingData.length >= 1) {
       jwt.sign({ user: user }, "secretkey", (err, token) => {
-        for (let i = 0; i < regUsers.length; i++) {
-          if (regUsers[i].username === user.username) {
-            regUsers[i].token = token;
-            console.log(regUsers);
-            fs.writeFile(usersFilePath, JSON.stringify(regUsers), () => {
-              res.sendStatus(200);
-            });
-          }
-        }
+        localStorage.setItem("token", token);
       });
+      res.status(200).json({ OK: "Successful login" });
       //res.status(200).json({ OK: "Login was succesful" });
     } else {
       res.status(401).json({ unauthorized: "Username or password was invalid" });

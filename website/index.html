@@ -11,11 +11,13 @@
       <header>
         <!-- <img src="./images/Logo_MoneyMan.png" alt="MoneyMan Logo"> -->
         <button onClick="on()">Register</button>
-        <button>Login</button>
+        <input id="log-username" type="text" name="log-username" placeholder="Username">
+        <input id="log-password" type="password" name="log-password" placeholder="Password">
+        <button onclick="loginUser()">Login</button>
       </header>
       <div id="overlay">
         <div id="background-overlay">
-          <form action="">
+          <form id="reg-form" action="">
             <h3>Create Account</h1>
 
             <input id="reg-username" type="text" name="usernmae" placeholder="Username" />

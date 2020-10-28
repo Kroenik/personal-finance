@@ -8,19 +8,50 @@ function off() {
 
 async function registerUser(event) {
   event.preventDefault();
-  let username = document.querySelector("#reg-username").value;
-  let password = document.querySelector("#reg-password").value;
+  let newUser = { username: document.querySelector("#reg-username").value, password: document.querySelector("#reg-password").value };
 
-  let user = { username: username, password: password };
-  const res = await fetch("http://localhost:3000/register", {
-    body: JSON.stringify(user),
+  const res = await fetch("http://localhost:3000/users");
+  const regUsers = await res.json();
+
+  let checker;
+  regUsers.forEach((regUser) => {
+    if (regUser.username.toLowerCase() === newUser.username.toLowerCase()) {
+      checker = true;
+    }
   });
-  window.location.replace("http://localhost:3000/overview.html");
+
+  if (checker) {
+    alert("Username is already registered. Please choose a different one");
+    checker = false;
+  } else {
+    const result = await fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    });
+    document.querySelector("#reg-username").value = "";
+    document.querySelector("#reg-password").value = "";
+    off();
+  }
+}
+
+async function loginUser(event) {
+  let logUser = { username: document.querySelector("#log-username").value, password: document.querySelector("#log-password").value };
+  const result = await fetch("http://localhost:3000/login", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(logUser),
+  });
+  setTimeout(window.location.replace("http://localhost:3000/overview.html"), 5000);
 }
 
 //Application page START
-
-getTransactions();
 
 async function getTransactions() {
   const res = await fetch("http://localhost:3000/transactions");
