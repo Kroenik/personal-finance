@@ -48,5 +48,8 @@ async function loginUser(event) {
     },
     body: JSON.stringify(logUser),
   });
-  setTimeout(window.location.replace("http://localhost:3000/overview.html"), 5000);
+  const token = await result.json();
+  localStorage.setItem("token", JSON.stringify(token.token));
+
+  window.location.replace("http://localhost:3000/overview.html");
 }

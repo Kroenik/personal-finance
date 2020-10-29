@@ -1,5 +1,12 @@
 async function getTransactions() {
-  const res = await fetch("http://localhost:3000/transactions");
+  console.log(localStorage.getItem("token"));
+  const res = await fetch("http://localhost:3000/transactions", {
+    Method: "GET",
+    headers: {
+      "content-type": "application/json",
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+    },
+  });
   const transactions = await res.json();
 
   const transactionsPosition = document.querySelector("#transactions");
@@ -78,3 +85,5 @@ function clearChildren(element) {
     document.forms[0].reset();
   }
 }
+
+getTransactions();

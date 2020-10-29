@@ -32,19 +32,21 @@ app.post("/users", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
+  console.log(req.body);
+
   //create user object with request data
   const user = { username: req.body.username, password: crypto.pbkdf2Sync(req.body.password, "qwertzuioplkjhgfdsayxcvbnm", 100000, 64, "sha512").toString("hex") };
-
   fs.readFile(usersFilePath, (err, buffer) => {
     //get registered user from json
     let regUsers = JSON.parse(buffer.toString());
     //check if there is matching username and password with input data
     let matchingData = regUsers.filter((regUser) => regUser.username === user.username && regUser.password === user.password);
+    console.log("test");
     if (matchingData.length >= 1) {
-      jwt.sign({ user: user }, "secretkey", (err, token) => {
-        localStorage.setItem("token", token);
-      });
-      res.status(200).json({ OK: "Successful login" });
+      const token = jwt.sign({ user: user }, "secretkey");
+      res.status(200).json({ token: token });
+
+      //res.status(200).json({ OK: "Successful login" });
       //res.status(200).json({ OK: "Login was succesful" });
     } else {
       res.status(401).json({ unauthorized: "Username or password was invalid" });
@@ -72,16 +74,10 @@ app.post("/login", (req, res) => {
   }*/
 });
 
-app.get("/transactions", (req, res) => {
-  // jwt.verify(req.token, "secretkey", (err, authData) => {
-  //   if (err) {
-  //     res.sendStatus(403);
-  //   } else {
+app.get("/transactions", verifyToken, (req, res) => {
   fs.readFile(transactionsFilePath, (err, buffer) => {
     res.json(JSON.parse(buffer.toString()));
   });
-  //}
-  //});
 });
 
 //verifyToken,
@@ -111,22 +107,15 @@ app.post("/transactions", (req, res) => {
 
 //erify Token
 function verifyToken(req, res, next) {
-  //Get auth header value
-  const bearerHeader = req.headers["authorization"];
-  // Check if undefined bearer
-  if (typeof bearerHeader !== "undefined") {
-    // Split at space
-    const bearer = bearerHeader.split(" ");
-    // Get token from array
-    const bearerToken = bearer[1];
-    //Set the token
-    req.token = bearerToken;
-    // Next middleware
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  console.log(token);
+  if (token == null) return res.sendStatus(401);
+  jwt.verify(token, "secretkey", (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
     next();
-  } else {
-    //Forbidden
-    res.sendStatus(403);
-  }
+  });
 }
 
 app.listen(port, () => {
