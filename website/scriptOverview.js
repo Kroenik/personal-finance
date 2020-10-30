@@ -1,5 +1,4 @@
 async function getTransactions() {
-  console.log(localStorage.getItem("token"));
   const res = await fetch("http://localhost:3000/transactions", {
     Method: "GET",
     headers: {

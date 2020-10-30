@@ -32,8 +32,6 @@ app.post("/users", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  console.log(req.body);
-
   //create user object with request data
   const user = { username: req.body.username, password: crypto.pbkdf2Sync(req.body.password, "qwertzuioplkjhgfdsayxcvbnm", 100000, 64, "sha512").toString("hex") };
   fs.readFile(usersFilePath, (err, buffer) => {
@@ -45,33 +43,10 @@ app.post("/login", (req, res) => {
     if (matchingData.length >= 1) {
       const token = jwt.sign({ user: user }, "secretkey");
       res.status(200).json({ token: token });
-
-      //res.status(200).json({ OK: "Successful login" });
-      //res.status(200).json({ OK: "Login was succesful" });
     } else {
       res.status(401).json({ unauthorized: "Username or password was invalid" });
     }
   });
-
-  /*
-  if (typeof username !== "string" || username === undefined) {
-    res.status(400).json({ error: "Username is not provided or not a string. Please provide a valid username" });
-  } else if (typeof password !== "string") {
-    res.status(400).json({ error: "Password is not provided or not a string. Please provide a valid password" });
-  } else {
-    const PasswordDerivative = crypto.pbkdf2Sync(password, "qwertzuioplkjhgfdsayxcvbnm", 100000, 64, "sha512").toString("hex");
-
-    let matchingData = users.filter((user) => user.username === username && user.passwordDerivative === PasswordDerivative);
-    if (matchingData.length >= 1) {
-      jwt.sign({ username: username }, "secretkey"),
-        (err, token) => {
-          res.json({ token: token });
-        };
-      //res.status(200).json({ OK: "Login was succesful" });
-    } else {
-      res.status(401).json({ unauthorized: "Username or password was invalid" });
-    }
-  }*/
 });
 
 app.get("/transactions", verifyToken, (req, res) => {
