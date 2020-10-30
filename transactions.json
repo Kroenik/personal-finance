@@ -1,9 +1,1 @@
-[
-  { "title": "HGB", "amount": "8,90", "type": "expense", "category": "education" },
-  { "title": "Cinema", "amount": "20", "type": "Expense", "category": "entertainment" },
-  { "title": "Döner", "amount": "5", "type": "on", "category": "Essen gehen" },
-  { "title": "Pizza", "amount": "7", "type": "on", "category": "Essen gehen" },
-  { "title": "IPad", "amount": "800.00", "type": "on", "category": "Technik" },
-  { "title": "IPad", "amount": "800.00", "type": "on", "category": "Technik" },
-  { "title": "Pizza", "amount": "10", "type": "on", "category": "Essen gehen" }
-]
+[{"title":"HGB","amount":"-8","category":"education"},{"title":"Cinema","amount":"-20","category":"entertainment"},{"title":"IPad","amount":"-500","category":"Technik"},{"title":"Taschengeld","amount":"50","category":"Eltern"},{"title":"Döner","amount":"-5","category":"Essen gehen"}]

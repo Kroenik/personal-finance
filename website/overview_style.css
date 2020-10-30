@@ -85,7 +85,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Change Profit/Expense */
-.type_switch {
+/* .type_switch {
   position: relative;
   display: inline-block;
   width: 100%;
@@ -117,12 +117,12 @@ input::-webkit-inner-spin-button {
 }
 #input_type:checked + .type::before {
   content: "profit                  \293C  ";
-}
-.visually-hidden {
+} */
+/* .visually-hidden {
   display: none;
-}
+} */
 
-button {
+/* button {
   font-size: 1.5em;
   background-color: rgba(250, 250, 250, 0);
   border: rgba(250, 250, 250, 0);
@@ -133,7 +133,7 @@ button {
   margin: 0.5rem;
   margin-bottom: 15px;
   width: 100px;
-}
+} */
 
 h3 {
   font-size: 3rem;
@@ -160,10 +160,15 @@ h3 {
   font-size: 0, 8em;
   text-align: left;
 }
-.amount {
+.expense {
   margin: 1px;
   font-size: large;
   color: rgb(255, 0, 0);
+}
+.profit {
+  margin: 1px;
+  font-size: large;
+  color: green;
 }
 .category {
   margin: 1px;
