@@ -75,9 +75,6 @@ function addTransaction(event) {
     } else {
       amount = "-".concat(inputAmount);
     }
-
-    // transactionAmounts.push(amount);
-
     postTransactionToJson({
       title: inputTitle,
       amount: amount,
@@ -133,14 +130,18 @@ function onlyUnique(value, index, self) {
 //   console.log(unique);
 // }
 
-function displayTotal(totalArray) {
-  let total;
-  totalArray.forEach((transaction) => {
-    total += transaction.amount;
+async function displayTotal(transactions) {
+  let userTransactions = await transactions;
+  let sum = 0;
+
+  userTransactions.forEach((transaction) => {
+    sum += parseFloat(transaction.amount);
   });
-  //   const bank = document.createElement("div");
-  //   bank.textContent = total + "€";
-  //   document.querySelector("categories-side").appendChild(bank);
+
+  const total = document.createElement("div");
+  total.classList.add("total");
+  document.querySelector("#input").insertBefore(total, document.getElementById("expense-button"));
+  total.textContent = "Total: " + sum + "€";
 }
 
 async function logOut() {
@@ -150,5 +151,4 @@ async function logOut() {
 let typeInput;
 
 transactionsToUI(getUserTransactions());
-
-//displayTotal(transactionAmounts);
+displayTotal(getUserTransactions());
