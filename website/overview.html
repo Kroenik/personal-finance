@@ -13,19 +13,17 @@
       <main>
         <div id="input">
           <h3>Input</h3>
-          <form action="./overview.html" onsubmit="onAddButton(event);">
+          <button onclick="setExpense()">Expense</button>
+          <button onclick="setProfit()">Profit</button>
+          <form action="./overview.html">
             <input type="text" name="title" placeholder="title..." id="input_title" /> <br />
-            <input type="checkbox" name="type" id="input_type" />
-            <button onclick="uncheckToExpense()">Expense</button>
-            <button onclick="checkToProfit()">Profit</button>
-
             <!-- <label class="type_switch">
               <input type="checkbox" name="type" id="input_type" class="visually-hidden" />
               <span class="type"></span>
             </label> -->
             <input type="number" name="amount" placeholder="00.00€" id="input_amount" /> <br />
             <input type="text" name="category" placeholder="category..." id="input_category" /> <br />
-            <input type="submit" value="add" id="input_add" onclick="onAddButton()" />
+            <input type="submit" value="add" id="input_add" onclick="addTransaction()" />
           </form>
         </div>
         <div id="statistics">
