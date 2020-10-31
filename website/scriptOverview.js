@@ -1,5 +1,3 @@
-// var transactionAmounts = [];
-
 async function getTransactions() {
   const res = await fetch("http://localhost:3000/transactions", {
     Method: "GET",
@@ -9,17 +7,17 @@ async function getTransactions() {
     },
   });
   const transactions = await res.json();
-  let userTransactions = [];
+
   transactions.forEach((element) => {
     if (element.user === localStorage.getItem("username")) {
       userTransactions.push(element);
     }
   });
   const transactionsPosition = document.querySelector("#transactions");
-  renderTransactions(transactionsPosition, userTransactions);
+  appendTransactionsToHTML(transactionsPosition, userTransactions);
 }
 
-function renderTransactions(position, transactionsData) {
+function appendTransactionsToHTML(position, transactionsData) {
   for (const transactionData of transactionsData) {
     const newTransaction = createTransaction(transactionData);
     position.prepend(newTransaction);
@@ -52,13 +50,13 @@ function createTransaction(data) {
   return transactionDiv;
 }
 
-function onAddButton(event) {
+function addTransaction(event) {
   //event.preventDefault();
 
   const inputData = document.forms[0].elements;
   const inputTitle = inputData["input_title"].value;
   //const inputType = inputData["input_type"].value;
-  const inputType = document.getElementById("input_type");
+  const inputType = typeInput;
   const inputAmount = inputData["input_amount"].value;
   const inputCategory = inputData["input_category"].value;
 
@@ -67,16 +65,15 @@ function onAddButton(event) {
   } else if (inputTitle.length > 20) {
     alert("Watch out! - The title is too long (max=20digits).");
   } else {
-    if (inputType.checked) {
+    if (inputType) {
       amount = inputAmount;
     } else {
-      convertableAmount = parseFloat(inputAmount) * -1;
-      amount = convertableAmount.toString();
+      amount = "-".concat(inputAmount);
     }
 
     // transactionAmounts.push(amount);
 
-    postToJson({
+    postTransactionToJson({
       title: inputTitle,
       amount: amount,
       //type: inputType,
@@ -86,7 +83,7 @@ function onAddButton(event) {
   }
 }
 
-async function postToJson(obj) {
+async function postTransactionToJson(obj) {
   const res = await fetch("http://localhost:3000/transactions", {
     method: "POST",
     headers: {
@@ -96,7 +93,6 @@ async function postToJson(obj) {
     },
     body: JSON.stringify(obj),
   });
-
   const currentTransactions = document.querySelector("#transactions");
   clearChildren(currentTransactions);
   getTransactions();
@@ -110,29 +106,29 @@ function clearChildren(element) {
 }
 
 //Expense/Profit Button
-function checkToProfit() {
-  document.getElementById("input_type").checked = true;
+function setExpense() {
+  typeInput = false;
 }
 
-function uncheckToExpense() {
-  document.getElementById("input_type").checked = false;
+function setProfit() {
+  typeInput = true;
 }
 
-//Total Calculation
-
-// function displayTotal(totalArray) {
-//   for (const i = 0; i < totalArray.length; i++) {
-//     var total = +totalArray[i];
-//   }
-//   const bank = document.createElement("div");
-//   bank.textContent = total + "€";
-//   document.querySelector("categories-side").appendChild(bank);
-// }
+function displayTotal(totalArray) {
+  let total;
+  totalArray.forEach((transaction) => {
+    total += transaction.amount;
+  });
+  //   const bank = document.createElement("div");
+  //   bank.textContent = total + "€";
+  //   document.querySelector("categories-side").appendChild(bank);
+}
 
 async function logOut() {
   localStorage.clear();
   window.location.replace("http://localhost:3000");
 }
-
+let typeInput;
 getTransactions();
+let userTransactions = [];
 //displayTotal(transactionAmounts);
