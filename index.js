@@ -39,7 +39,6 @@ app.post("/login", (req, res) => {
     let regUsers = JSON.parse(buffer.toString());
     //check if there is matching username and password with input data
     let matchingData = regUsers.filter((regUser) => regUser.username === user.username && regUser.password === user.password);
-    console.log("test");
     if (matchingData.length >= 1) {
       const token = jwt.sign({ user: user }, "secretkey");
       res.status(200).json({ token: token });
@@ -58,18 +57,6 @@ app.get("/transactions", verifyToken, (req, res) => {
 //verifyToken,
 
 app.post("/transactions", (req, res) => {
-  // if (!req.body.title || !req.body.content || !req.body.username) {
-  //   return res.status(400).json({
-  //     error: "The data you're sending is missing some fields. Should have: title, content and username",
-  //   });
-  // }
-
-  // if (typeof req.body.title !== "string" || typeof req.body.content !== "string" || typeof req.body.username !== "string") {
-  //   return res.status(400).json({
-  //     error: "The data you're sending is of a wrong type. All fields should be strings",
-  //   });
-  // }
-
   fs.readFile(transactionsFilePath, (err, buffer) => {
     const existing = JSON.parse(buffer.toString());
     console.log(existing);

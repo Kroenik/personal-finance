@@ -8,7 +8,7 @@ function off() {
 
 async function registerUser(event) {
   event.preventDefault();
-  let username = document.querySelector("#reg-username").value;
+  let username = document.querySelector("#reg-username").value.toLowerCase();
   let password = document.querySelector("#reg-password").value;
   if (!username) {
     alert("Please provide a username");
@@ -47,7 +47,7 @@ async function registerUser(event) {
 }
 
 async function loginUser(event) {
-  let logUser = { username: document.querySelector("#log-username").value, password: document.querySelector("#log-password").value };
+  let logUser = { username: document.querySelector("#log-username").value.toLowerCase(), password: document.querySelector("#log-password").value };
   const result = await fetch("http://localhost:3000/login", {
     method: "POST",
     headers: {
@@ -61,7 +61,7 @@ async function loginUser(event) {
     alert("Username or password was invalid");
   } else {
     localStorage.setItem("token", JSON.stringify(resultJSON.token));
-
+    localStorage.setItem("username", document.querySelector("#log-username").value.toLowerCase());
     window.location.replace("http://localhost:3000/overview.html");
   }
 }

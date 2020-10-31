@@ -9,9 +9,14 @@ async function getTransactions() {
     },
   });
   const transactions = await res.json();
-
+  let userTransactions = [];
+  transactions.forEach((element) => {
+    if (element.user === localStorage.getItem("username")) {
+      userTransactions.push(element);
+    }
+  });
   const transactionsPosition = document.querySelector("#transactions");
-  renderTransactions(transactionsPosition, transactions);
+  renderTransactions(transactionsPosition, userTransactions);
 }
 
 function renderTransactions(position, transactionsData) {
@@ -48,7 +53,7 @@ function createTransaction(data) {
 }
 
 function onAddButton(event) {
-  event.preventDefault();
+  //event.preventDefault();
 
   const inputData = document.forms[0].elements;
   const inputTitle = inputData["input_title"].value;
@@ -76,6 +81,7 @@ function onAddButton(event) {
       amount: amount,
       //type: inputType,
       category: inputCategory,
+      user: localStorage.getItem("username"),
     });
   }
 }
@@ -122,6 +128,11 @@ function uncheckToExpense() {
 //   bank.textContent = total + "€";
 //   document.querySelector("categories-side").appendChild(bank);
 // }
+
+async function logOut() {
+  localStorage.clear();
+  window.location.replace("http://localhost:3000");
+}
 
 getTransactions();
 //displayTotal(transactionAmounts);
