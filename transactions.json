@@ -13,7 +13,17 @@
   { "title": "ggregre", "amount": "-98", "type": false, "category": "ewruiwo", "user": "tester" },
   { "title": "TEst", "amount": "45", "category": "qwer", "user": "tester" },
   { "title": "fghf", "amount": "-23", "category": "hhrhtr", "user": "tester" },
+<<<<<<< HEAD
   { "title": "Pizza", "amount": "-7.5", "category": "Essen gehen", "user": "henrik2" },
   { "title": "Pizza", "amount": "-7.5", "category": "Essen gehen", "user": "henrik2" },
   { "title": "Döner", "amount": "-5", "category": "essen gehen", "user": "henrik2" }
+=======
+  { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
+  { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
+  { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
+  { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
+  { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
+  { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
+  { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" }
+>>>>>>> d09abf1cf4aa938a206ff2e301c7442274fa3a4f
 ]

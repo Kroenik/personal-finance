@@ -1,4 +1,4 @@
-async function getTransactions() {
+async function getUserTransactions() {
   const res = await fetch("http://localhost:3000/transactions", {
     Method: "GET",
     headers: {
@@ -7,14 +7,19 @@ async function getTransactions() {
     },
   });
   const transactions = await res.json();
-
+  let userTransactions = [];
   transactions.forEach((element) => {
     if (element.user === localStorage.getItem("username")) {
       userTransactions.push(element);
     }
   });
+  return userTransactions;
+}
+
+async function transactionsToUI(userTransactions) {
   const transactionsPosition = document.querySelector("#transactions");
-  appendTransactionsToHTML(transactionsPosition, userTransactions);
+  console.log(await userTransactions);
+  appendTransactionsToHTML(transactionsPosition, await userTransactions);
 }
 
 function appendTransactionsToHTML(position, transactionsData) {
@@ -105,7 +110,6 @@ function clearChildren(element) {
   }
 }
 
-//Expense/Profit Button
 function setExpense() {
   typeInput = false;
   document.getElementById("expense-button").className = "expense-button-on";
@@ -116,6 +120,18 @@ function setProfit() {
   document.getElementById("expense-button").className = "expense-button-off";
   document.getElementById("profit-button").className = "profit-button-on";
 }
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
+// async function groupAmountByCategorie(userTransactions) {
+//   let categories = [];
+//   console.log(userTransactions);
+//   userTransactions.forEach((transaction) => {
+//     categories.push(transaction.category);
+//   });
+//   let unique = categories.filter(onlyUnique);
+//   console.log(unique);
+// }
 
 function displayTotal(totalArray) {
   let total;
@@ -132,6 +148,7 @@ async function logOut() {
   window.location.replace("http://localhost:3000");
 }
 let typeInput;
-getTransactions();
-let userTransactions = [];
+
+transactionsToUI(getUserTransactions());
+
 //displayTotal(transactionAmounts);
