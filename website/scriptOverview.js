@@ -108,10 +108,13 @@ function clearChildren(element) {
 //Expense/Profit Button
 function setExpense() {
   typeInput = false;
+  document.getElementById("expense-button").className = "expense-button-on";
+  document.getElementById("profit-button").className = "profit-button-off";
 }
-
 function setProfit() {
   typeInput = true;
+  document.getElementById("expense-button").className = "expense-button-off";
+  document.getElementById("profit-button").className = "profit-button-on";
 }
 
 function displayTotal(totalArray) {

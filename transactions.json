@@ -12,5 +12,8 @@
   { "title": "iojhnolkn", "amount": "789", "category": "uioi", "user": "tester" },
   { "title": "ggregre", "amount": "-98", "type": false, "category": "ewruiwo", "user": "tester" },
   { "title": "TEst", "amount": "45", "category": "qwer", "user": "tester" },
-  { "title": "fghf", "amount": "-23", "category": "hhrhtr", "user": "tester" }
+  { "title": "fghf", "amount": "-23", "category": "hhrhtr", "user": "tester" },
+  { "title": "Pizza", "amount": "-7.5", "category": "Essen gehen", "user": "henrik2" },
+  { "title": "Pizza", "amount": "-7.5", "category": "Essen gehen", "user": "henrik2" },
+  { "title": "Döner", "amount": "-5", "category": "essen gehen", "user": "henrik2" }
 ]

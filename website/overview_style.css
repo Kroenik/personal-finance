@@ -34,6 +34,33 @@ footer {
   font-size: small;
 }
 
+button {
+  cursor: pointer;
+}
+
+.header-button {
+  font-size: 1.5em;
+  background-color: rgba(250, 250, 250, 0);
+  border: rgba(250, 250, 250, 0);
+
+  border-bottom: 3px solid white;
+  color: white;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  margin-bottom: 15px;
+  width: 100px;
+}
+
+h3 {
+  font-size: 3rem;
+  color: #ffffff;
+  text-align: center;
+}
+h4 {
+  color: white;
+  text-align: center;
+}
+
 /* Overview-Page START*/
 
 main {
@@ -47,9 +74,8 @@ main {
 }
 
 /* Input Left-Side*/
-
+.input_type,
 #input_title,
-.type_switch,
 #input_amount,
 #input_category,
 #input_add {
@@ -85,6 +111,31 @@ input::-webkit-inner-spin-button {
 }
 
 /* Change Profit/Expense */
+#expense-button,
+#profit-button {
+  width: 44%;
+  height: 30px;
+  margin-bottom: 1rem;
+  margin-left: 4%;
+  border: 1px solid rgba(255, 255, 255, 0.74);
+  font-size: large;
+  transition: all 0.2s;
+  align-items: center;
+}
+.expense-button-on {
+  background-color: rgb(196, 17, 17);
+}
+.expense-button-off {
+  background-color: rgb(180, 150, 150);
+  color: rgb(59, 59, 59);
+}
+.profit-button-on {
+  background-color: rgb(11, 165, 11);
+}
+.profit-button-off {
+  background-color: rgb(149, 189, 149);
+  color: rgb(59, 59, 59);
+}
 /* .type_switch {
   position: relative;
   display: inline-block;
@@ -121,25 +172,6 @@ input::-webkit-inner-spin-button {
 /* .visually-hidden {
   display: none;
 } */
-
-/* button {
-  font-size: 1.5em;
-  background-color: rgba(250, 250, 250, 0);
-  border: rgba(250, 250, 250, 0);
-
-  border-bottom: 3px solid white;
-  color: white;
-  padding: 0.5rem;
-  margin: 0.5rem;
-  margin-bottom: 15px;
-  width: 100px;
-} */
-
-h3 {
-  font-size: 3rem;
-  color: #ffffff;
-  text-align: center;
-}
 
 /* Statistics Right-Side */
 
@@ -179,8 +211,4 @@ h3 {
   font-size: small;
   padding-left: 10px;
   opacity: 0.5;
-}
-h4 {
-  color: white;
-  text-align: center;
 }

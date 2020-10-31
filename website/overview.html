@@ -8,19 +8,15 @@
   <body>
     <div id="main_grid">
       <header>
-        <button onclick="logOut()">Logout</button>
+        <button onclick="logOut()" class="header-button">Logout</button>
       </header>
       <main>
         <div id="input">
           <h3>Input</h3>
-          <button onclick="setExpense()">Expense</button>
-          <button onclick="setProfit()">Profit</button>
+          <button onclick="setExpense()" id="expense-button" class="expense-button-on">Expense</button>
+          <button onclick="setProfit()" id="profit-button" class="profit-button-off">Profit</button>
           <form action="./overview.html">
             <input type="text" name="title" placeholder="title..." id="input_title" /> <br />
-            <!-- <label class="type_switch">
-              <input type="checkbox" name="type" id="input_type" class="visually-hidden" />
-              <span class="type"></span>
-            </label> -->
             <input type="number" name="amount" placeholder="00.00€" id="input_amount" /> <br />
             <input type="text" name="category" placeholder="category..." id="input_category" /> <br />
             <input type="submit" value="add" id="input_add" onclick="addTransaction()" />
@@ -41,15 +37,6 @@
         <p>Made in northern Germany ⚓️</p>
       </footer>
     </div>
-    <!-- <script>
-      function changeType () {
-        var state = document.getElementById("input_type")
-        if (state.innerHTML === 'expense') {
-          state.innerHTML = "profit";
-        } else {
-          state.innerHTML = "expense";
-        }
-    </script> -->
     <script src="scriptOverview.js" defer></script>
   </body>
 </html>
