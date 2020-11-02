@@ -29,9 +29,12 @@ function appendTransactionsToHTML(position, transactionsData) {
   }
 }
 
+var id_index = 0;
+
 function createTransaction(data) {
   const transactionDiv = document.createElement("div");
   transactionDiv.classList.add("transaction");
+  transactionDiv.setAttribute("id", data.user + "-" + id_index++);
 
   const amountP = document.createElement("p");
   if (data.amount < 0) {
@@ -40,20 +43,32 @@ function createTransaction(data) {
     amountP.classList.add("profit");
   }
 
+  const deleteButton = document.createElement("button");
+  deleteButton.classList.add("delete-button");
+  //deleteButton.onclick = deleteTransaction(this);
+
   const categoryP = document.createElement("p");
   categoryP.classList.add("category");
+
   const titleP = document.createElement("p");
   titleP.classList.add("title");
 
   transactionDiv.appendChild(amountP);
+  transactionDiv.appendChild(deleteButton);
   transactionDiv.appendChild(categoryP);
   transactionDiv.appendChild(titleP);
+
   amountP.textContent = data.amount + "€";
+  deleteButton.textContent = "delete";
   categoryP.textContent = data.category;
   titleP.textContent = data.title;
 
   return transactionDiv;
 }
+
+// function deleteTransaction(this_transaction) {
+//   console.log(this_transaction.parentNode.id);
+// }
 
 function addTransaction(event) {
   //event.preventDefault();
@@ -130,18 +145,42 @@ function onlyUnique(value, index, self) {
 //   console.log(unique);
 // }
 
-async function displayTotal(transactions) {
+async function displayBalance(transactions) {
   let userTransactions = await transactions;
-  let sum = 0;
+  let totalBalance = 0;
+  let totalProfit = 0;
+  let totalExpense = 0;
 
   userTransactions.forEach((transaction) => {
-    sum += parseFloat(transaction.amount);
+    amount = parseFloat(transaction.amount);
+    if (amount < 0) {
+      totalExpense += amount;
+    } else {
+      totalProfit += amount;
+    }
+    //sum += parseFloat(transaction.amount);
   });
+  totalBalance = totalExpense + totalProfit;
 
-  const total = document.createElement("div");
-  total.classList.add("total");
-  document.querySelector("#input").insertBefore(total, document.getElementById("expense-button"));
-  total.textContent = "Total: " + sum + "€";
+  const totalDiv = document.createElement("div");
+  totalDiv.classList.add("total");
+  document.querySelector("#input").insertBefore(totalDiv, document.getElementById("expense-button"));
+
+  const totalBalanceDiv = document.createElement("div");
+  totalBalanceDiv.classList.add("total-calculations");
+  totalDiv.appendChild(totalBalanceDiv);
+
+  const totalExpenseDiv = document.createElement("div");
+  totalExpenseDiv.classList.add("total-calculations");
+  totalDiv.appendChild(totalExpenseDiv);
+
+  const totalProfitDiv = document.createElement("div");
+  totalProfitDiv.classList.add("total-calculations");
+  totalDiv.appendChild(totalProfitDiv);
+
+  totalBalanceDiv.textContent = "Balance: " + totalBalance + "€";
+  totalExpenseDiv.textContent = "Total expense: " + totalExpense + "€";
+  totalProfitDiv.textContent = "Total Profit: " + totalProfit + "€";
 }
 
 async function logOut() {
@@ -151,4 +190,4 @@ async function logOut() {
 let typeInput;
 
 transactionsToUI(getUserTransactions());
-displayTotal(getUserTransactions());
+displayBalance(getUserTransactions());

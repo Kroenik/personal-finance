@@ -76,8 +76,11 @@ main {
 /* Input Left-Side*/
 
 .total {
-  text-align: center;
   margin-bottom: 3rem;
+}
+.total-calculations {
+  text-align: right;
+  margin-bottom: 5px;
 }
 
 .input_type,
@@ -101,6 +104,8 @@ input::-webkit-inner-spin-button {
 
 /* ADD Button */
 #input_add {
+  width: 50%;
+  margin-left: 25%;
   background-color: transparent;
   border: 1px solid white;
   color: #fff;
@@ -198,9 +203,6 @@ input::-webkit-inner-spin-button {
 #transactions::-webkit-scrollbar {
   background: transparent;
 }
-#trabsactions::-webkit-scrollbar-thumb {
-  background: white !important;
-}
 .transaction {
   margin-right: 10px;
   margin-left: 10px;
@@ -213,14 +215,25 @@ input::-webkit-inner-spin-button {
   text-align: left;
 }
 .expense {
+  display: inline;
   margin: 1px;
   font-size: large;
   color: rgb(255, 0, 0);
 }
 .profit {
+  display: inline;
   margin: 1px;
   font-size: large;
   color: green;
+}
+.delete-button {
+  float: right;
+  background-color: rgba(250, 250, 250, 0);
+  border: rgba(250, 250, 250, 0);
+  color: red;
+}
+.delete-button:hover {
+  text-decoration: underline;
 }
 .category {
   margin: 1px;
