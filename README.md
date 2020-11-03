@@ -1,1 +1,3 @@
-#This application will help you to handle your finances
+# Personalfincance
+
+This application will help you to handle your finances
