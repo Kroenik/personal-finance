@@ -75,12 +75,19 @@ main {
 
 /* Input Left-Side*/
 
-.total {
+#total-table {
+  margin-left: 15%;
   margin-bottom: 3rem;
+  width: 70%;
 }
 .total-calculations {
   text-align: right;
-  margin-bottom: 5px;
+}
+.total-balance-negative {
+  color: rgb(255, 0, 0);
+}
+.total-balance-positive {
+  color: green;
 }
 
 .input_type,
@@ -90,12 +97,12 @@ main {
 #input_add {
   height: 30px;
   width: 100%;
-  outline: none;
-  resize: none;
+  /* outline: none;
+  resize: none; */
   margin-bottom: 1rem;
   font-size: large;
 }
-
+/* remove the up/down arrows for amount */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -149,42 +156,6 @@ input::-webkit-inner-spin-button {
   background-color: rgb(149, 189, 149);
   color: rgb(59, 59, 59);
 }
-/* .type_switch {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  height: 30px;
-}
-.type {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgb(250, 128, 128);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-.type::before {
-  white-space: pre;
-  content: "expense                \293D  ";
-  display: block;
-  width: 100%;
-  text-align: right;
-  margin-top: 2px;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-#input_type:checked + .type {
-  background-color: rgb(132, 247, 132);
-}
-#input_type:checked + .type::before {
-  content: "profit                  \293C  ";
-} */
-/* .visually-hidden {
-  display: none;
-} */
 
 /* Statistics Right-Side */
 

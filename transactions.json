@@ -10,20 +10,23 @@
   { "title": "werwet", "amount": "-78", "category": "tewt", "user": "tester" },
   { "title": "gwrege", "amount": "-98", "category": "rtqrqw", "user": "tester" },
   { "title": "iojhnolkn", "amount": "789", "category": "uioi", "user": "tester" },
-  { "title": "ggregre", "amount": "-98", "type": false, "category": "ewruiwo", "user": "tester" },
+  { "title": "ggregre", "amount": "-98", "category": "ewruiwo", "user": "tester" },
   { "title": "TEst", "amount": "45", "category": "qwer", "user": "tester" },
   { "title": "fghf", "amount": "-23", "category": "hhrhtr", "user": "tester" },
-<<<<<<< HEAD
-  { "title": "Pizza", "amount": "-7.5", "category": "Essen gehen", "user": "henrik2" },
-  { "title": "Pizza", "amount": "-7.5", "category": "Essen gehen", "user": "henrik2" },
-  { "title": "Döner", "amount": "-5", "category": "essen gehen", "user": "henrik2" }
-=======
   { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
   { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
   { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
   { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
   { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
   { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
-  { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" }
->>>>>>> d09abf1cf4aa938a206ff2e301c7442274fa3a4f
+  { "title": "Bananen", "amount": "5", "category": "Lebensmittel", "user": "tester" },
+  { "title": "Schuhe", "amount": "-100", "category": "Kleidung", "user": "henrik2", "id": "5aff5fd6-84b5-4c2e-97f0-460856aa6caa" },
+  { "title": "rewe", "amount": "-50", "category": "lebensmittel", "user": "henrik2", "id": "8309a7a6-c0d2-487e-84aa-5e6306a38af9" },
+  { "title": "Pizza", "amount": "-5", "category": "Essen gehen", "user": "henrik2", "id": "3766fca1-d5b3-4cb4-a220-166b20151cf0" },
+  { "title": "Ipad", "amount": "-600", "category": "Technik", "user": "henrik2", "id": "85e2a2c7-d242-46c9-8f09-1cf3ef1960dc" },
+  { "title": "Tasche", "amount": "-20", "category": "adidas", "user": "henrik2", "id": "2c4af9eb-3b20-4099-84ca-549fedbb000b" },
+  { "title": "Rewe", "amount": "-10", "category": "Lebensmittel", "user": "henrik2", "id": "931e41ad-467c-46a6-b1a0-c64f2498ff03" },
+  { "title": "Gehalt", "amount": "1000", "category": "adidas", "user": "henrik2", "id": "e6b98af8-a8ec-438b-9313-f7b2cdc1c3a7" },
+  { "title": "ipad", "amount": "-600", "category": "Technik", "user": "henrik2", "id": "43d936ec-c686-441e-a6e3-b5cbef79fdb3" },
+  { "title": "Taschengeld", "amount": "385", "category": "Oma", "user": "henrik2", "id": "9fe18219-ed9e-430f-b9ef-7a951f9ab7cb" }
 ]

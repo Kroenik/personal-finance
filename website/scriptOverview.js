@@ -1,3 +1,5 @@
+//const { response } = require("express");
+
 async function getUserTransactions() {
   const res = await fetch("http://localhost:3000/transactions", {
     Method: "GET",
@@ -16,25 +18,30 @@ async function getUserTransactions() {
   return userTransactions;
 }
 
+// async function transactionsToUI(userTransactions) {
+//   const transactionsPosition = document.querySelector("#transactions");
+//   console.log(await userTransactions);
+//   appendTransactionsToHTML(transactionsPosition, await userTransactions);
+// }
+
+// function appendTransactionsToHTML(position, transactionsData) {
+//   for (const transactionData of transactionsData) {
+//     const newTransaction = createTransaction(transactionData);
+//     position.prepend(newTransaction);
+//   }
+// }
 async function transactionsToUI(userTransactions) {
   const transactionsPosition = document.querySelector("#transactions");
-  console.log(await userTransactions);
-  appendTransactionsToHTML(transactionsPosition, await userTransactions);
-}
-
-function appendTransactionsToHTML(position, transactionsData) {
-  for (const transactionData of transactionsData) {
-    const newTransaction = createTransaction(transactionData);
-    position.prepend(newTransaction);
+  for (const userTransaction of await userTransactions) {
+    const newTransaction = createTransaction(userTransaction);
+    transactionsPosition.prepend(newTransaction);
   }
 }
-
-var id_index = 0;
 
 function createTransaction(data) {
   const transactionDiv = document.createElement("div");
   transactionDiv.classList.add("transaction");
-  transactionDiv.setAttribute("id", data.user + "-" + id_index++);
+  transactionDiv.setAttribute("id", data.id);
 
   const amountP = document.createElement("p");
   if (data.amount < 0) {
@@ -44,8 +51,15 @@ function createTransaction(data) {
   }
 
   const deleteButton = document.createElement("button");
+  deleteButton.addEventListener(
+    "click",
+    function () {
+      deleteTransactionFromJson(data.id);
+    },
+    false
+  );
   deleteButton.classList.add("delete-button");
-  //deleteButton.onclick = deleteTransaction(this);
+  //deleteButton.setAttribute("id", data.id);
 
   const categoryP = document.createElement("p");
   categoryP.classList.add("category");
@@ -66,19 +80,15 @@ function createTransaction(data) {
   return transactionDiv;
 }
 
-// function deleteTransaction(this_transaction) {
-//   console.log(this_transaction.parentNode.id);
-// }
-
 function addTransaction(event) {
   //event.preventDefault();
 
   const inputData = document.forms[0].elements;
   const inputTitle = inputData["input_title"].value;
-  //const inputType = inputData["input_type"].value;
   const inputType = typeInput;
   const inputAmount = inputData["input_amount"].value;
   const inputCategory = inputData["input_category"].value;
+  const transactionId = generateId();
 
   if (!inputTitle || !inputAmount) {
     alert("Watch out! - The title and/or amount is missing.");
@@ -93,9 +103,9 @@ function addTransaction(event) {
     postTransactionToJson({
       title: inputTitle,
       amount: amount,
-      //type: inputType,
       category: inputCategory,
       user: localStorage.getItem("username"),
+      id: transactionId,
     });
   }
 }
@@ -113,6 +123,19 @@ async function postTransactionToJson(obj) {
   const currentTransactions = document.querySelector("#transactions");
   clearChildren(currentTransactions);
   getTransactions();
+}
+
+async function deleteTransactionFromJson(id) {
+  const res = await fetch("http://localhost:3000/transactions/" + id, {
+    method: "DELETE",
+  });
+  //const currentTransactions = document.querySelector("#transactions");
+  //clearChildren(currentTransactions);
+  //getTransactions();
+  //const updatedUserTransactions = getUserTransactions();
+  //transactionsToUI(updatedUserTransactions);
+  //displayBalance(updatedUserTransactions);
+  location.reload();
 }
 
 function clearChildren(element) {
@@ -158,36 +181,42 @@ async function displayBalance(transactions) {
     } else {
       totalProfit += amount;
     }
-    //sum += parseFloat(transaction.amount);
   });
   totalBalance = totalExpense + totalProfit;
 
-  const totalDiv = document.createElement("div");
-  totalDiv.classList.add("total");
-  document.querySelector("#input").insertBefore(totalDiv, document.getElementById("expense-button"));
+  const totalBalanceTd = document.createElement("td");
+  if (totalBalance < 0) {
+    totalBalanceTd.classList.add("total-balance-negative");
+  } else {
+    totalBalanceTd.classList.add("total-balance-positive");
+  }
+  totalBalanceTd.classList.add("total-calculations");
+  document.querySelector("#balance").appendChild(totalBalanceTd);
 
-  const totalBalanceDiv = document.createElement("div");
-  totalBalanceDiv.classList.add("total-calculations");
-  totalDiv.appendChild(totalBalanceDiv);
+  const totalExpenseTd = document.createElement("td");
+  totalExpenseTd.classList.add("total-calculations");
+  document.querySelector("#total-expense").appendChild(totalExpenseTd);
 
-  const totalExpenseDiv = document.createElement("div");
-  totalExpenseDiv.classList.add("total-calculations");
-  totalDiv.appendChild(totalExpenseDiv);
+  const totalProfitTd = document.createElement("td");
+  totalProfitTd.classList.add("total-calculations");
+  document.querySelector("#total-profit").appendChild(totalProfitTd);
 
-  const totalProfitDiv = document.createElement("div");
-  totalProfitDiv.classList.add("total-calculations");
-  totalDiv.appendChild(totalProfitDiv);
-
-  totalBalanceDiv.textContent = "Balance: " + totalBalance + "€";
-  totalExpenseDiv.textContent = "Total expense: " + totalExpense + "€";
-  totalProfitDiv.textContent = "Total Profit: " + totalProfit + "€";
+  totalBalanceTd.textContent = totalBalance + "€";
+  totalExpenseTd.textContent = totalExpense + "€";
+  totalProfitTd.textContent = totalProfit + "€";
 }
 
 async function logOut() {
   localStorage.clear();
   window.location.replace("http://localhost:3000");
 }
+
+function generateId() {
+  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) => (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16));
+}
+
 let typeInput;
+//var id_index = 0;
 
 transactionsToUI(getUserTransactions());
 displayBalance(getUserTransactions());
