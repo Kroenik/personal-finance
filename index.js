@@ -3,6 +3,9 @@ const fs = require("fs");
 const path = require("path");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+const { parse } = require("path");
+
+// var _ = require("lodash");
 
 const app = express();
 const port = 3000;
@@ -67,7 +70,22 @@ app.post("/transactions", (req, res) => {
   });
 });
 
-//erify Token
+app.delete("/transactions/:id", (req, res) => {
+  fs.readFile(transactionsFilePath, (err, buffer) => {
+    const existing = JSON.parse(buffer.toString());
+
+    for (let i = 0; i < existing.length; i++) {
+      if (existing[i].id === req.params.id) {
+        existing.splice(i, 1);
+      }
+    }
+    fs.writeFile(transactionsFilePath, JSON.stringify(existing), () => {
+      res.sendStatus(200);
+    });
+  });
+});
+
+//verify Token
 function verifyToken(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -83,3 +101,10 @@ function verifyToken(req, res, next) {
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });
+
+function getTransactionById(id) {
+  return _.find(existing, { id: id });
+}
+function removeTransaction(id) {
+  todos = _.reject(existing, { id: id });
+}
