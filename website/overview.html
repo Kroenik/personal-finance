@@ -23,6 +23,13 @@
             </label> -->
             <input type="number" name="amount" placeholder="00.00€" id="input_amount" /> <br />
             <input type="text" name="category" placeholder="category..." id="input_category" /> <br />
+            <select name="category" id="input_category">
+              <option value="Lebensmittel">Lebensmittel</option>
+              <option value="Fahrkosten">Fahrkosten</option>
+              <option value="Unterhaltung">Unterhaltung</option>
+              <option value="Bildung">Bildung</option>
+              <option value="Essen gehen">Essen gehen</option>
+            </select>
             <input type="submit" value="add" id="input_add" onclick="addTransaction()" />
           </form>
         </div>
@@ -30,6 +37,7 @@
           <!-- <h3>Statistics</h3> -->
           <div id="categories-side">
             <h4>Categories</h4>
+            <div id="categroies"></div>
           </div>
           <div id="transactions-side">
             <h4>Transactions</h4>
