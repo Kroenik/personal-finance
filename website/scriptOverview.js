@@ -18,7 +18,6 @@ async function getUserTransactions() {
 
 async function transactionsToUI(userTransactions) {
   const transactionsPosition = document.querySelector("#transactions");
-  console.log(await userTransactions);
   appendTransactionsToHTML(transactionsPosition, await userTransactions);
 }
 
@@ -120,15 +119,49 @@ function setProfit() {
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
-// async function groupAmountByCategorie(userTransactions) {
-//   let categories = [];
-//   console.log(userTransactions);
-//   userTransactions.forEach((transaction) => {
-//     categories.push(transaction.category);
-//   });
-//   let unique = categories.filter(onlyUnique);
-//   console.log(unique);
-// }
+async function groupAmountByCategorie(transactions) {
+  let categories = [];
+  let userTransactions = await transactions;
+  userTransactions.forEach((transaction) => {
+    categories.push(transaction.category);
+  });
+
+  let uniqueCategories = categories.filter(onlyUnique);
+  let amountsByCategory = {};
+
+  uniqueCategories.forEach((category) => {
+    amountsByCategory[category] = 0;
+  });
+
+  userTransactions.forEach((transaction) => {
+    amountsByCategory[transaction.category] = amountsByCategory[transaction.category] + parseFloat(transaction.amount);
+  });
+  amountsByCategory = Object.keys(amountsByCategory).map((key) => [String(key), amountsByCategory[key]]);
+
+  toWebsite(amountsByCategory);
+}
+
+function toWebsite(amountsByCategory) {
+  const transactionsPosition = document.querySelector("#categroies");
+  for (const categorie of amountsByCategory) {
+    const newCategorie = createCategory(categorie);
+    transactionsPosition.prepend(newCategorie);
+  }
+}
+
+function createCategory(data) {
+  const categoryDiv = document.createElement("div");
+  const amountP = document.createElement("p");
+  const categoryP = document.createElement("p");
+  categoryP.classList.add("category");
+  categoryDiv.appendChild(amountP);
+  categoryDiv.appendChild(categoryP);
+
+  amountP.textContent = data[1] + "€";
+  categoryP.textContent = data[0];
+
+  return categoryDiv;
+}
 
 function displayTotal(totalArray) {
   let total;
@@ -147,5 +180,6 @@ async function logOut() {
 let typeInput;
 
 transactionsToUI(getUserTransactions());
+groupAmountByCategorie(getUserTransactions());
 
 //displayTotal(transactionAmounts);
