@@ -29,13 +29,14 @@
           <form action="./overview.html">
             <input type="text" name="title" placeholder="title..." id="input_title" /> <br />
             <input type="number" name="amount" placeholder="00.00€" id="input_amount" /> <br />
-            <input type="text" name="category" placeholder="category..." id="input_category" /> <br />
             <select name="category" id="input_category">
               <option value="Lebensmittel">Lebensmittel</option>
               <option value="Fahrkosten">Fahrkosten</option>
               <option value="Unterhaltung">Unterhaltung</option>
               <option value="Bildung">Bildung</option>
               <option value="Essen gehen">Essen gehen</option>
+              <option value="Klamotten">Klamotten</option>
+              <option value="Anderes">Anderes</option>
             </select>
             <input type="submit" value="add" id="input_add" onclick="addTransaction()" />
           </form>
