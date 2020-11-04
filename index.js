@@ -57,9 +57,7 @@ app.get("/transactions", verifyToken, (req, res) => {
   });
 });
 
-//verifyToken,
-
-app.post("/transactions", (req, res) => {
+app.post("/transactions", verifyToken, (req, res) => {
   fs.readFile(transactionsFilePath, (err, buffer) => {
     const existing = JSON.parse(buffer.toString());
     console.log(existing);
@@ -70,7 +68,7 @@ app.post("/transactions", (req, res) => {
   });
 });
 
-app.delete("/transactions/:id", (req, res) => {
+app.delete("/transactions/:id", verifyToken, (req, res) => {
   fs.readFile(transactionsFilePath, (err, buffer) => {
     const existing = JSON.parse(buffer.toString());
 
@@ -89,7 +87,6 @@ app.delete("/transactions/:id", (req, res) => {
 function verifyToken(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  console.log(token);
   if (token == null) return res.sendStatus(401);
   jwt.verify(token, "secretkey", (err, user) => {
     if (err) return res.sendStatus(403);
