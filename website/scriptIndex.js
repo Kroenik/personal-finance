@@ -54,7 +54,7 @@ async function registerUser(event) {
 }
 
 async function loginUser(event) {
-  let logUser = { username: document.querySelector("#log-username").value.toLowerCase(), password: document.querySelector("#log-password").value };
+  const logUser = { username: document.querySelector("#log-username").value.toLowerCase(), password: document.querySelector("#log-password").value };
   const result = await fetch("http://localhost:3000/login", {
     method: "POST",
     headers: {
@@ -70,5 +70,12 @@ async function loginUser(event) {
     localStorage.setItem("token", JSON.stringify(resultJSON.token));
     localStorage.setItem("username", document.querySelector("#log-username").value.toLowerCase());
     window.location.replace("http://localhost:3000/overview.html");
+  }
+}
+
+function logOnEnter(event) {
+  if (event.code === "Enter") {
+    event.preventDefault();
+    document.getElementById("log-button").click();
   }
 }
