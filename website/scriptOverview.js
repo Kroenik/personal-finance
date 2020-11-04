@@ -116,7 +116,7 @@ async function postTransactionToJson(obj) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      //Authorization: Bearer,
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
     },
     body: JSON.stringify(obj),
   });
@@ -128,6 +128,10 @@ async function postTransactionToJson(obj) {
 async function deleteTransactionFromJson(id) {
   const res = await fetch("http://localhost:3000/transactions/" + id, {
     method: "DELETE",
+    headers: {
+      "content-type": "application/json",
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+    },
   });
   //const currentTransactions = document.querySelector("#transactions");
   //clearChildren(currentTransactions);
@@ -190,6 +194,7 @@ function toWebsite(amountsByCategory) {
 
 function createCategory(data) {
   const categoryDiv = document.createElement("div");
+  categoryDiv.classList.add("transaction");
   const amountP = document.createElement("p");
   const categoryP = document.createElement("p");
   categoryP.classList.add("category");
@@ -235,9 +240,9 @@ async function displayBalance(transactions) {
   totalProfitTd.classList.add("total-calculations");
   document.querySelector("#total-profit").appendChild(totalProfitTd);
 
-  totalBalanceTd.textContent = totalBalance + "€";
-  totalExpenseTd.textContent = totalExpense + "€";
-  totalProfitTd.textContent = totalProfit + "€";
+  totalBalanceTd.textContent = totalBalance.toFixed(2) + "€";
+  totalExpenseTd.textContent = totalExpense.toFixed(2) + "€";
+  totalProfitTd.textContent = totalProfit.toFixed(2) + "€";
 }
 
 async function logOut() {
@@ -249,7 +254,7 @@ function generateId() {
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) => (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16));
 }
 
-let typeInput;
+let typeInput = false;
 //var id_index = 0;
 
 transactionsToUI(getUserTransactions());
