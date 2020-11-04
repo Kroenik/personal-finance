@@ -5,8 +5,6 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const { parse } = require("path");
 
-// var _ = require("lodash");
-
 const app = express();
 const port = 3000;
 
@@ -98,10 +96,3 @@ function verifyToken(req, res, next) {
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });
-
-function getTransactionById(id) {
-  return _.find(existing, { id: id });
-}
-function removeTransaction(id) {
-  todos = _.reject(existing, { id: id });
-}

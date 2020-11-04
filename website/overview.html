@@ -13,43 +13,33 @@
       <main>
         <div id="input">
           <h3>Input</h3>
-          <table id="total-table">
-            <tr id="balance">
-              <td>Balance</td>
-            </tr>
-            <tr id="total-expense">
-              <td>Expense</td>
-            </tr>
-            <tr id="total-profit">
-              <td>Profit</td>
-            </tr>
-          </table>
+          <table id="total-table"></table>
           <button onclick="setExpense()" id="expense-button" class="expense-button-on">Expense</button>
           <button onclick="setProfit()" id="profit-button" class="profit-button-off">Profit</button>
           <form action="./overview.html">
             <input type="text" name="title" placeholder="title..." id="input_title" /> <br />
             <input type="number" name="amount" placeholder="00.00€" id="input_amount" /> <br />
             <select name="category" id="input_category">
-              <option value="Lebensmittel">Lebensmittel</option>
-              <option value="Fahrkosten">Fahrkosten</option>
+              <!-- <option id="default_category" disabled selected>Select your category</option> -->
+              <!-- <option value="Lebensmittel">Lebensmittel</option>
+              <option value="Fahrkosten">Fahrtkosten</option>
               <option value="Unterhaltung">Unterhaltung</option>
               <option value="Bildung">Bildung</option>
               <option value="Essen gehen">Essen gehen</option>
-              <option value="Klamotten">Klamotten</option>
-              <option value="Anderes">Anderes</option>
+              <option value="Klamotten">Kleidung</option>
+              <option value="Anderes">Sonstiges</option> -->
             </select>
-            <input type="submit" value="add" id="input_add" onclick="addTransaction()" />
+            <input type="button" value="add" id="input_add" onclick="addTransaction()" />
           </form>
         </div>
         <div id="statistics">
-          <!-- <h3>Statistics</h3> -->
           <div id="categories-side">
             <h4>Categories</h4>
-            <div id="categroies"></div>
+            <div id="categories" class="scrollable"></div>
           </div>
           <div id="transactions-side">
             <h4>latest transactions</h4>
-            <div id="transactions"></div>
+            <div id="transactions" class="scrollable"></div>
           </div>
         </div>
       </main>

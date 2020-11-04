@@ -1,5 +1,3 @@
-//const { response } = require("express");
-
 async function getUserTransactions() {
   const res = await fetch("http://localhost:3000/transactions", {
     Method: "GET",
@@ -18,18 +16,6 @@ async function getUserTransactions() {
   return userTransactions;
 }
 
-// async function transactionsToUI(userTransactions) {
-//   const transactionsPosition = document.querySelector("#transactions");
-//   console.log(await userTransactions);
-//   appendTransactionsToHTML(transactionsPosition, await userTransactions);
-// }
-
-// function appendTransactionsToHTML(position, transactionsData) {
-//   for (const transactionData of transactionsData) {
-//     const newTransaction = createTransaction(transactionData);
-//     position.prepend(newTransaction);
-//   }
-// }
 async function transactionsToUI(userTransactions) {
   const transactionsPosition = document.querySelector("#transactions");
   for (const userTransaction of await userTransactions) {
@@ -59,7 +45,6 @@ function createTransaction(data) {
     false
   );
   deleteButton.classList.add("delete-button");
-  //deleteButton.setAttribute("id", data.id);
 
   const categoryP = document.createElement("p");
   categoryP.classList.add("category");
@@ -81,8 +66,6 @@ function createTransaction(data) {
 }
 
 function addTransaction(event) {
-  //event.preventDefault();
-
   const inputData = document.forms[0].elements;
   const inputTitle = inputData["input_title"].value;
   const inputType = typeInput;
@@ -120,9 +103,8 @@ async function postTransactionToJson(obj) {
     },
     body: JSON.stringify(obj),
   });
-  const currentTransactions = document.querySelector("#transactions");
-  clearChildren(currentTransactions);
-  getTransactions();
+
+  updateAllData();
 }
 
 async function deleteTransactionFromJson(id) {
@@ -133,13 +115,22 @@ async function deleteTransactionFromJson(id) {
       Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
     },
   });
-  //const currentTransactions = document.querySelector("#transactions");
-  //clearChildren(currentTransactions);
-  //getTransactions();
-  //const updatedUserTransactions = getUserTransactions();
-  //transactionsToUI(updatedUserTransactions);
-  //displayBalance(updatedUserTransactions);
-  location.reload();
+
+  updateAllData();
+}
+
+function updateAllData() {
+  const currentTransactions = document.querySelector("#transactions");
+  const currentCategories = document.querySelector("#categories");
+  const currentBalance = document.querySelector("#total-table");
+  clearChildren(currentTransactions);
+  clearChildren(currentCategories);
+  clearChildren(currentBalance);
+
+  const updatedTransactions = getUserTransactions();
+  transactionsToUI(updatedTransactions);
+  groupAmountByCategory(updatedTransactions);
+  displayBalance(updatedTransactions);
 }
 
 function clearChildren(element) {
@@ -149,20 +140,50 @@ function clearChildren(element) {
   }
 }
 
+function switchCategoryOptionsTo(arr) {
+  const allOptions = document.querySelector("#input_category");
+  clearChildren(allOptions);
+
+  defaultOption = document.createElement("option");
+  defaultOption.disabled = true;
+  defaultOption.selected = true;
+  allOptions.appendChild(defaultOption);
+  defaultOption.textContent = "choose a category";
+
+  let option = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    option[i] = document.createElement("option");
+  }
+  for (let j = 0; j < arr.length; j++) {
+    allOptions.appendChild(option[j]);
+  }
+  for (let u = 0; u < arr.length; u++) {
+    option[u].textContent = arr[u];
+  }
+}
+
 function setExpense() {
   typeInput = false;
   document.getElementById("expense-button").className = "expense-button-on";
   document.getElementById("profit-button").className = "profit-button-off";
+
+  const expenseOptions = ["Lebensmittel", "Essen gehen", "Unterhaltung", "Fahrtkosten", "Bildung", "Kleidung", "Sonstiges"];
+  switchCategoryOptionsTo(expenseOptions);
 }
 function setProfit() {
   typeInput = true;
   document.getElementById("expense-button").className = "expense-button-off";
   document.getElementById("profit-button").className = "profit-button-on";
+
+  const profitOptions = ["Gehalt", "Taschengeld", "Geschenk", "Sportwetten", "Gefunden", "Geklaut", "Sonstiges"];
+  switchCategoryOptionsTo(profitOptions);
 }
+
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
-async function groupAmountByCategorie(transactions) {
+async function groupAmountByCategory(transactions) {
   let categories = [];
   let userTransactions = await transactions;
   userTransactions.forEach((transaction) => {
@@ -185,9 +206,9 @@ async function groupAmountByCategorie(transactions) {
 }
 
 function toWebsite(amountsByCategory) {
-  const transactionsPosition = document.querySelector("#categroies");
-  for (const categorie of amountsByCategory) {
-    const newCategorie = createCategory(categorie);
+  const transactionsPosition = document.querySelector("#categories");
+  for (const category of amountsByCategory) {
+    const newCategorie = createCategory(category);
     transactionsPosition.prepend(newCategorie);
   }
 }
@@ -223,26 +244,37 @@ async function displayBalance(transactions) {
   });
   totalBalance = totalExpense + totalProfit;
 
-  const totalBalanceTd = document.createElement("td");
-  if (totalBalance < 0) {
-    totalBalanceTd.classList.add("total-balance-negative");
-  } else {
-    totalBalanceTd.classList.add("total-balance-positive");
+  const totalTable = document.querySelector("#total-table");
+
+  const balanceRow = createTableRow("Balance", totalBalance);
+  const expenseRow = createTableRow("Expense", totalExpense);
+  const profitRow = createTableRow("Profit", totalProfit);
+
+  totalTable.appendChild(balanceRow);
+  totalTable.appendChild(expenseRow);
+  totalTable.appendChild(profitRow);
+}
+
+function createTableRow(totalType, totalAmount) {
+  const tr = document.createElement("tr");
+  const th = document.createElement("th");
+  const td = document.createElement("td");
+
+  if (totalType === "Balance") {
+    if (totalAmount < 0) {
+      td.classList.add("total-balance-negative");
+    } else {
+      td.classList.add("total-balance-positive");
+    }
   }
-  totalBalanceTd.classList.add("total-calculations");
-  document.querySelector("#balance").appendChild(totalBalanceTd);
+  td.classList.add("total-calculations");
 
-  const totalExpenseTd = document.createElement("td");
-  totalExpenseTd.classList.add("total-calculations");
-  document.querySelector("#total-expense").appendChild(totalExpenseTd);
+  tr.appendChild(th);
+  tr.appendChild(td);
+  th.textContent = totalType;
+  td.textContent = totalAmount.toFixed(2) + "€";
 
-  const totalProfitTd = document.createElement("td");
-  totalProfitTd.classList.add("total-calculations");
-  document.querySelector("#total-profit").appendChild(totalProfitTd);
-
-  totalBalanceTd.textContent = totalBalance.toFixed(2) + "€";
-  totalExpenseTd.textContent = totalExpense.toFixed(2) + "€";
-  totalProfitTd.textContent = totalProfit.toFixed(2) + "€";
+  return tr;
 }
 
 async function logOut() {
@@ -254,11 +286,9 @@ function generateId() {
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) => (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16));
 }
 
-let typeInput = false;
-//var id_index = 0;
+//let typeInput = false;
 
 transactionsToUI(getUserTransactions());
-groupAmountByCategorie(getUserTransactions());
-
-//displayTotal(transactionAmounts);
+groupAmountByCategory(getUserTransactions());
 displayBalance(getUserTransactions());
+setExpense();

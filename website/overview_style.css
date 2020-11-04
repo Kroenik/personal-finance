@@ -81,6 +81,7 @@ main {
   width: 70%;
 }
 .total-calculations {
+  width: 50%;
   text-align: right;
 }
 .total-balance-negative {
@@ -89,17 +90,22 @@ main {
 .total-balance-positive {
   color: green;
 }
+th {
+  text-align: left;
+  width: 50%;
+}
 
-.input_type,
+#expense-button,
+#profit-button,
 #input_title,
 #input_amount,
 #input_category,
 #input_add {
   height: 30px;
-  width: 100%;
-  /* outline: none;
-  resize: none; */
-  margin-bottom: 1rem;
+  width: 88%;
+  margin-left: 6%;
+  outline: none;
+  margin-bottom: 2rem;
   font-size: large;
 }
 /* remove the up/down arrows for amount */
@@ -116,7 +122,6 @@ input::-webkit-inner-spin-button {
   background-color: transparent;
   border: 1px solid white;
   color: #fff;
-  font-size: large;
   transition: all 0.2s;
   align-items: center;
   cursor: pointer;
@@ -131,12 +136,8 @@ input::-webkit-inner-spin-button {
 /* Change Profit/Expense */
 #expense-button,
 #profit-button {
-  width: 44%;
-  height: 30px;
-  margin-bottom: 1rem;
-  margin-left: 4%;
+  width: 41%;
   border: 1px solid rgba(255, 255, 255, 0.74);
-  font-size: large;
   transition: all 0.2s;
   align-items: center;
 }
@@ -165,13 +166,13 @@ input::-webkit-inner-spin-button {
   grid-template-areas: "categories-side transactions-side";
 }
 
-#transactions {
+.scrollable {
   width: 100%;
-  height: 600px;
+  height: 620px;
   overflow-y: auto;
   overflow-x: hidden;
 }
-#transactions::-webkit-scrollbar {
+.scrollable::-webkit-scrollbar {
   background: transparent;
 }
 .transaction {
