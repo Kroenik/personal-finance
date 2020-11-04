@@ -10,10 +10,15 @@ async function registerUser(event) {
   event.preventDefault();
   let username = document.querySelector("#reg-username").value.toLowerCase();
   let password = document.querySelector("#reg-password").value;
+  let reppassword = document.querySelector("#rep-password").value;
   if (!username) {
     alert("Please provide a username");
   } else if (!password || password.length < 6) {
     alert("Please provide a password with at least 6 characters.");
+  } else if (reppassword !== password) {
+    alert("Password is not matching the repetition password, please repeat");
+    document.querySelector("#reg-password").value = "";
+    document.querySelector("#rep-password").value = "";
   } else {
     let newUser = { username: username, password: password };
 
@@ -41,7 +46,9 @@ async function registerUser(event) {
       });
       document.querySelector("#reg-username").value = "";
       document.querySelector("#reg-password").value = "";
+      document.querySelector("#rep-password").value = "";
       off();
+      alert("User registered successfully");
     }
   }
 }
