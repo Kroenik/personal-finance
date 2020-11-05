@@ -19,16 +19,10 @@
           <form action="./overview.html">
             <input type="text" name="title" placeholder="title..." id="input_title" /> <br />
             <input type="number" name="amount" placeholder="00.00€" id="input_amount" /> <br />
-            <select name="category" id="input_category">
-              <!-- <option id="default_category" disabled selected>Select your category</option> -->
-              <!-- <option value="Lebensmittel">Lebensmittel</option>
-              <option value="Fahrkosten">Fahrtkosten</option>
-              <option value="Unterhaltung">Unterhaltung</option>
-              <option value="Bildung">Bildung</option>
-              <option value="Essen gehen">Essen gehen</option>
-              <option value="Klamotten">Kleidung</option>
-              <option value="Anderes">Sonstiges</option> -->
-            </select>
+            <input type="text" id="input_category" list="category-options" placeholder="category..." />
+            <datalist id="category-options"></datalist>
+            <!-- <select name="category" id="input_category"> -->
+            <!-- </select> -->
             <input type="button" value="add" id="input_add" onclick="addTransaction()" />
           </form>
         </div>

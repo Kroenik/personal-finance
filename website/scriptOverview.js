@@ -91,6 +91,8 @@ function addTransaction(event) {
       id: transactionId,
     });
   }
+
+  // addNewCategory(inputCategory);
 }
 
 async function postTransactionToJson(obj) {
@@ -141,14 +143,14 @@ function clearChildren(element) {
 }
 
 function switchCategoryOptionsTo(arr) {
-  const allOptions = document.querySelector("#input_category");
+  const allOptions = document.querySelector("#category-options"); //("#input_category");
   clearChildren(allOptions);
 
-  defaultOption = document.createElement("option");
-  defaultOption.disabled = true;
-  defaultOption.selected = true;
-  allOptions.appendChild(defaultOption);
-  defaultOption.textContent = "choose a category";
+  // defaultOption = document.createElement("option");
+  // defaultOption.disabled = true;
+  // defaultOption.selected = true;
+  // allOptions.appendChild(defaultOption);
+  // defaultOption.textContent = "choose a category";
 
   let option = [];
 
@@ -162,6 +164,10 @@ function switchCategoryOptionsTo(arr) {
     option[u].textContent = arr[u];
   }
 }
+
+// function addNewCategory(inputCategory) {
+
+// }
 
 function setExpense() {
   typeInput = false;
