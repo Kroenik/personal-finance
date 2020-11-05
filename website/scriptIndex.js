@@ -79,3 +79,10 @@ function logOnEnter(event) {
     document.getElementById("log-button").click();
   }
 }
+
+function regOnEnter(event) {
+  if (event.code === "Enter") {
+    event.preventDefault();
+    document.getElementById("reg-button").click();
+  }
+}

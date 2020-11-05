@@ -4,6 +4,8 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: arial, Arial, Helvetica, sans-serif;
+  letter-spacing: 3px;
 }
 
 #grid-container {
@@ -31,6 +33,8 @@ main {
 footer {
   grid-area: footer;
   background: #a3d2ca;
+  text-align: center;
+  font-size: small;
 }
 
 button {
@@ -53,20 +57,18 @@ img {
 }
 
 h1 {
-  font-family: arial, Helvetica, sans-serif;
   font-size: 7em;
   color: #ffffff;
-  padding-top: 2em;
+  padding-top: 1em;
   padding-left: 3em;
 }
 
-p {
+/* p {
   text-align: center;
-  font-family: arial, Arial, Helvetica, sans-serif;
   font-size: 0.5em;
   color: white;
   padding-top: 2em;
-}
+} */
 
 #overlay {
   position: fixed; /* Sit on top of the page content */

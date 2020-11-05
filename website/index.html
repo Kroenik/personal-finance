@@ -20,10 +20,10 @@
           <form id="reg-form" action="">
             <h3>Create Account</h1>
 
-            <input id="reg-username" type="text" name="username" placeholder="Username" />
-            <input id="reg-password" type="password" name="password" placeholder="Password" />
-            <input id="rep-password" type="password" name="password-repeat" placeholder="Repeat Password">
-            <button onClick="registerUser(event)">SignUp</button>
+            <input id="reg-username" type="text" name="username" placeholder="Username" onkeyup="regOnEnter(event)"/>
+            <input id="reg-password" type="password" name="password" placeholder="Password" onkeyup="regOnEnter(event)"/>
+            <input id="rep-password" type="password" name="password-repeat" placeholder="Repeat Password" onkeyup="regOnEnter(event)">
+            <button onClick="registerUser(event)" id="reg-button">SignUp</button>
             <button onClick="off()">Close</button>
           </form>
         </div>
