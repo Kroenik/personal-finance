@@ -168,7 +168,7 @@ function setExpense() {
   document.getElementById("expense-button").className = "expense-button-on";
   document.getElementById("profit-button").className = "profit-button-off";
 
-  const expenseOptions = ["Lebensmittel", "Essen gehen", "Unterhaltung", "Fahrtkosten", "Bildung", "Kleidung", "Sonstiges"];
+  const expenseOptions = ["Groceries", "Restaurant", "Entertainment", "Travel", "Education", "Clothes", "other ... expense"];
   switchCategoryOptionsTo(expenseOptions);
 }
 function setProfit() {
@@ -176,7 +176,7 @@ function setProfit() {
   document.getElementById("expense-button").className = "expense-button-off";
   document.getElementById("profit-button").className = "profit-button-on";
 
-  const profitOptions = ["Gehalt", "Taschengeld", "Geschenk", "Sportwetten", "Gefunden", "Geklaut", "Sonstiges"];
+  const profitOptions = ["Salary", "Pocket Money", "Present", "Casino", "Found", "Stolen", "other ... profit"];
   switchCategoryOptionsTo(profitOptions);
 }
 
