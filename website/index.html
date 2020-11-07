@@ -10,10 +10,12 @@
     <div id="grid-container">
       <header>
         <!-- <img src="./images/Logo_MoneyMan.png" alt="MoneyMan Logo"> -->
-        <button onClick="on()">Register</button>
-        <input id="log-username" type="text" name="log-username" placeholder="Username" onkeyup="logOnEnter(event)" />
-        <input id="log-password" type="password" name="log-password" placeholder="Password" onkeyup="logOnEnter(event)" />
-        <button onclick="loginUser()" id="log-button">Login</button>
+        <div id="header-bar">
+          <input class="log-input" id="log-username" type="text" name="log-username" placeholder="Username" onkeyup="logOnEnter(event)" />
+          <input class="log-input" id="log-password" type="password" name="log-password" placeholder="Password" onkeyup="logOnEnter(event)" />
+          <button class="main-buttons" onclick="loginUser()" id="log-button">Login</button>
+          <button class="main-buttons" onClick="on()">Register</button>
+        </div>
       </header>
       <div id="overlay">
         <form id="reg-form" id="reg-form" action="">
