@@ -4,17 +4,18 @@
     <link rel="stylesheet" href="style.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MoneyMan</title>
+    <title>TransMo</title>
   </head>
   <body>
     <div id="grid-container">
       <header>
-        <div id="header-bar">
+        <h2 id="transmo">TransMo</h2>
+        <span id="header-bar">
           <input class="log-input" id="log-username" type="text" name="log-username" placeholder="Username" onkeyup="logOnEnter(event)" />
           <input class="log-input" id="log-password" type="password" name="log-password" placeholder="Password" onkeyup="logOnEnter(event)" />
           <button class="main-buttons" onclick="loginUser()" id="log-button">Login</button>
-          <button class="main-buttons" onClick="on()">Register</button>
-        </div>
+          <button class="main-buttons" onclick="on()">Register</button>
+        </span>
       </header>
       <div id="overlay">
         <form id="reg-form" id="reg-form" action="">
