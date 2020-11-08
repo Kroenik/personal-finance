@@ -12,10 +12,11 @@
       </header>
       <main>
         <div id="input">
-          <h3>Input</h3>
+          <h3>Your money</h3>
           <table id="total-table"></table>
+          <h4>Add Transaction</h4>
           <button onclick="setExpense()" id="expense-button" class="expense-button-on">Expense</button>
-          <button onclick="setProfit()" id="profit-button" class="profit-button-off">Profit</button>
+          <button onclick="setProfit()" id="profit-button" class="e-p-button" class="profit-button-off">Profit</button>
           <form action="./overview.html">
             <input class="transaction-input" type="text" name="title" placeholder="title..." id="input_title" /> <br />
             <input class="transaction-input" type="number" name="amount" placeholder="00.00€" id="input_amount" /> <br />
@@ -29,10 +30,12 @@
         <div id="statistics">
           <div id="categories-side">
             <h4>Categories</h4>
+            <button onclick="groupAmountByCategory(getUserTransactions(), 'expense')" id="expense-button-2" class="expense-button-on">Expense</button>
+            <button onclick="groupAmountByCategory(getUserTransactions(), 'profit')" id="profit-button-2" class="profit-button-off">Profit</button>
             <div id="categories" class="scrollable"></div>
           </div>
           <div id="transactions-side">
-            <h4>latest transactions</h4>
+            <h4>Latest Transactions</h4>
             <div id="transactions" class="scrollable"></div>
           </div>
         </div>

@@ -91,8 +91,6 @@ function addTransaction(event) {
       id: transactionId,
     });
   }
-
-  // addNewCategory(inputCategory);
 }
 
 async function postTransactionToJson(obj) {
@@ -131,7 +129,7 @@ function updateAllData() {
 
   const updatedTransactions = getUserTransactions();
   transactionsToUI(updatedTransactions);
-  groupAmountByCategory(updatedTransactions);
+  groupAmountByCategory(updatedTransactions, "expense");
   displayBalance(updatedTransactions);
 }
 
@@ -165,16 +163,12 @@ function switchCategoryOptionsTo(arr) {
   }
 }
 
-// function addNewCategory(inputCategory) {
-
-// }
-
 function setExpense() {
   typeInput = false;
   document.getElementById("expense-button").className = "expense-button-on";
   document.getElementById("profit-button").className = "profit-button-off";
 
-  const expenseOptions = ["Groceries", "Restaurant", "Entertainment", "Travel", "Education", "Clothes", "other ... expense"];
+  const expenseOptions = ["Groceries", "Restaurant", "Entertainment", "Travel", "Education", "Clothes", "other..."];
   switchCategoryOptionsTo(expenseOptions);
 }
 function setProfit() {
@@ -182,14 +176,14 @@ function setProfit() {
   document.getElementById("expense-button").className = "expense-button-off";
   document.getElementById("profit-button").className = "profit-button-on";
 
-  const profitOptions = ["Salary", "Pocket Money", "Present", "Casino", "Found", "Stolen", "other ... profit"];
+  const profitOptions = ["Salary", "Pocket Money", "Present", "Casino", "Found", "Stolen", "other..."];
   switchCategoryOptionsTo(profitOptions);
 }
 
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
-async function groupAmountByCategory(transactions) {
+async function groupAmountByCategory(transactions, transactionType) {
   let categories = [];
   let userTransactions = await transactions;
   userTransactions.forEach((transaction) => {
@@ -206,16 +200,36 @@ async function groupAmountByCategory(transactions) {
   userTransactions.forEach((transaction) => {
     amountsByCategory[transaction.category] = amountsByCategory[transaction.category] + parseFloat(transaction.amount);
   });
+
   amountsByCategory = Object.keys(amountsByCategory).map((key) => [String(key), amountsByCategory[key]]);
 
-  toWebsite(amountsByCategory);
+  toWebsite(amountsByCategory, transactionType);
 }
 
-function toWebsite(amountsByCategory) {
+function toWebsite(amountsByCategory, transactionType) {
   const transactionsPosition = document.querySelector("#categories");
-  for (const category of amountsByCategory) {
-    const newCategorie = createCategory(category);
-    transactionsPosition.prepend(newCategorie);
+  clearChildren(transactionsPosition);
+
+  if (transactionType === "expense") {
+    document.getElementById("expense-button-2").className = "expense-button-on";
+    document.getElementById("profit-button-2").className = "profit-button-off";
+
+    for (const category of amountsByCategory) {
+      if (category[1] < 0) {
+        const newCategorie = createCategory(category);
+        transactionsPosition.prepend(newCategorie);
+      }
+    }
+  } else {
+    document.getElementById("expense-button-2").className = "expense-button-off";
+    document.getElementById("profit-button-2").className = "profit-button-on";
+
+    for (const category of amountsByCategory) {
+      if (category[1] >= 0) {
+        const newCategorie = createCategory(category);
+        transactionsPosition.prepend(newCategorie);
+      }
+    }
   }
 }
 
@@ -295,6 +309,6 @@ function generateId() {
 //let typeInput = false;
 
 transactionsToUI(getUserTransactions());
-groupAmountByCategory(getUserTransactions());
+groupAmountByCategory(getUserTransactions(), "expense");
 displayBalance(getUserTransactions());
 setExpense();

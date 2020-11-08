@@ -1,6 +1,6 @@
 html,
 body {
-  width: 100%;
+  width: 100vw;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -22,10 +22,6 @@ body {
 header {
   grid-area: header;
   background: #5eaaa8;
-}
-main {
-  grid-area: main;
-  background: linear-gradient(180deg, #5eaaa8, #a3d2ca);
 }
 footer {
   grid-area: footer;
@@ -59,17 +55,22 @@ h3 {
 h4 {
   color: white;
   text-align: center;
+  padding-bottom: 1rem;
 }
 
 /* Overview-Page START*/
 
 main {
+  grid-area: main;
+  background: linear-gradient(180deg, #5eaaa8, #a3d2ca);
+
   display: grid;
   grid-template-columns: 30% 70%;
   grid-template-areas: "input statistics";
 }
 #input,
 #statistics {
+  margin: 0;
   padding: 5px;
 }
 
@@ -121,13 +122,16 @@ input::-webkit-inner-spin-button {
   margin-left: 25%;
   background-color: transparent;
   border: 1px solid white;
-  color: #fff;
+  color: white;
   transition: all 0.2s;
   align-items: center;
   cursor: pointer;
 }
 #input_add:hover {
   background-color: rgb(169, 206, 206);
+  outline: none;
+  border-color: #ffffff;
+  box-shadow: 0 0 10px #ffffff;
 }
 #input_add:active {
   background-color: rgb(78, 153, 153);
@@ -135,11 +139,20 @@ input::-webkit-inner-spin-button {
 
 /* Change Profit/Expense */
 #expense-button,
-#profit-button {
+#profit-button,
+#expense-button-2,
+#profit-button-2 {
   width: 41%;
   border: 1px solid rgba(255, 255, 255, 0.74);
   transition: all 0.2s;
   align-items: center;
+}
+#expense-button-2,
+#profit-button-2 {
+  width: 44%;
+  margin-left: 3%;
+  outline: none;
+  margin-bottom: 2rem;
 }
 .expense-button-on {
   background-color: rgb(196, 17, 17);
@@ -149,6 +162,10 @@ input::-webkit-inner-spin-button {
   background-color: rgb(180, 150, 150);
   color: rgb(59, 59, 59);
 }
+.expense-button-off:hover {
+  background-color: rgb(196, 17, 17);
+  border: 1px white;
+}
 .profit-button-on {
   background-color: rgb(11, 165, 11);
   border: 1px white;
@@ -157,18 +174,28 @@ input::-webkit-inner-spin-button {
   background-color: rgb(149, 189, 149);
   color: rgb(59, 59, 59);
 }
+.profit-button-off:hover {
+  background-color: rgb(11, 165, 11);
+  border: 1px white;
+}
 
 /* Statistics Right-Side */
 
 #statistics {
+  width: 100%;
   display: grid;
   grid-template-columns: 60% 40%;
   grid-template-areas: "categories-side transactions-side";
 }
 
+#categories {
+  height: 560px;
+}
+#transactions {
+  height: 620px;
+}
 .scrollable {
   width: 100%;
-  height: 620px;
   overflow-y: auto;
   overflow-x: hidden;
 }
