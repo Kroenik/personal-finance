@@ -144,12 +144,6 @@ function switchCategoryOptionsTo(arr) {
   const allOptions = document.querySelector("#category-options"); //("#input_category");
   clearChildren(allOptions);
 
-  // defaultOption = document.createElement("option");
-  // defaultOption.disabled = true;
-  // defaultOption.selected = true;
-  // allOptions.appendChild(defaultOption);
-  // defaultOption.textContent = "choose a category";
-
   let option = [];
 
   for (let i = 0; i < arr.length; i++) {
