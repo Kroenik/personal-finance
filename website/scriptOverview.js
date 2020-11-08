@@ -129,7 +129,7 @@ function updateAllData() {
 
   const updatedTransactions = getUserTransactions();
   transactionsToUI(updatedTransactions);
-  groupAmountByCategory(updatedTransactions, "expense");
+  groupAmountByExpenseCategory(updatedTransactions);
   displayBalance(updatedTransactions);
 }
 
@@ -177,27 +177,55 @@ function setProfit() {
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
-async function groupAmountByCategory(transactions, transactionType) {
-  let categories = [];
+
+async function groupAmountByExpenseCategory(transactions) {
+  let expenseCategories = [];
   let userTransactions = await transactions;
-  userTransactions.forEach((transaction) => {
-    categories.push(transaction.category);
-  });
-
-  let uniqueCategories = categories.filter(onlyUnique);
-  let amountsByCategory = {};
-
-  uniqueCategories.forEach((category) => {
-    amountsByCategory[category] = 0;
-  });
 
   userTransactions.forEach((transaction) => {
-    amountsByCategory[transaction.category] = amountsByCategory[transaction.category] + parseFloat(transaction.amount);
+    expenseCategories.push(transaction.category);
   });
 
-  amountsByCategory = Object.keys(amountsByCategory).map((key) => [String(key), amountsByCategory[key]]);
+  let uniqueExpenseCategories = expenseCategories.filter(onlyUnique);
+  let amountsByExpenseCategory = {};
 
-  toWebsite(amountsByCategory, transactionType);
+  uniqueExpenseCategories.forEach((category) => {
+    amountsByExpenseCategory[category] = 0;
+  });
+
+  userTransactions.forEach((transaction) => {
+    if (transaction.amount < 0) {
+      amountsByExpenseCategory[transaction.category] = amountsByExpenseCategory[transaction.category] + parseFloat(transaction.amount);
+    }
+  });
+  amountsByExpenseCategory = Object.keys(amountsByExpenseCategory).map((key) => [String(key), amountsByExpenseCategory[key]]);
+
+  toWebsite(amountsByExpenseCategory, "expense");
+}
+
+async function groupAmountByProfitCategory(transactions) {
+  let profitCategories = [];
+  let userTransactions = await transactions;
+
+  userTransactions.forEach((transaction) => {
+    profitCategories.push(transaction.category);
+  });
+
+  let uniqueProfitCategories = profitCategories.filter(onlyUnique);
+  let amountsByProfitCategory = {};
+
+  uniqueProfitCategories.forEach((category) => {
+    amountsByProfitCategory[category] = 0;
+  });
+
+  userTransactions.forEach((transaction) => {
+    if (transaction.amount > 0) {
+      amountsByProfitCategory[transaction.category] = amountsByProfitCategory[transaction.category] + parseFloat(transaction.amount);
+    }
+  });
+  amountsByProfitCategory = Object.keys(amountsByProfitCategory).map((key) => [String(key), amountsByProfitCategory[key]]);
+
+  toWebsite(amountsByProfitCategory, "profit");
 }
 
 function toWebsite(amountsByCategory, transactionType) {
@@ -219,7 +247,7 @@ function toWebsite(amountsByCategory, transactionType) {
     document.getElementById("profit-button-2").className = "profit-button-on";
 
     for (const category of amountsByCategory) {
-      if (category[1] >= 0) {
+      if (category[1] > 0) {
         const newCategorie = createCategory(category);
         transactionsPosition.prepend(newCategorie);
       }
@@ -303,6 +331,6 @@ function generateId() {
 //let typeInput = false;
 
 transactionsToUI(getUserTransactions());
-groupAmountByCategory(getUserTransactions(), "expense");
+groupAmountByExpenseCategory(getUserTransactions());
 displayBalance(getUserTransactions());
 setExpense();

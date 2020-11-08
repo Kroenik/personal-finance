@@ -29,8 +29,8 @@
         <div id="statistics">
           <div id="categories-side">
             <h4>Categories</h4>
-            <button onclick="groupAmountByCategory(getUserTransactions(), 'expense')" id="expense-button-2" class="expense-button-on">Expense</button>
-            <button onclick="groupAmountByCategory(getUserTransactions(), 'profit')" id="profit-button-2" class="profit-button-off">Profit</button>
+            <button onclick="groupAmountByExpenseCategory(getUserTransactions());" id="expense-button-2" class="expense-button-on">Expense</button>
+            <button onclick="groupAmountByProfitCategory(getUserTransactions());" id="profit-button-2" class="profit-button-off">Profit</button>
             <div id="categories" class="scrollable"></div>
           </div>
           <div id="transactions-side">
