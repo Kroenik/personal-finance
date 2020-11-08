@@ -103,6 +103,7 @@ p {
   position: absolute;
   color: #a3d2ca;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .reg-header {
@@ -192,4 +193,12 @@ p {
 #header-bar {
   position: absolute;
   right: 2em;
+}
+
+#transmo {
+  color: white;
+  margin-left: 2em;
+  display: inline-block;
+  font-size: 2em;
+  letter-spacing: 5px;
 }
