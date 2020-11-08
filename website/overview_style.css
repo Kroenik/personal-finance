@@ -121,6 +121,7 @@ input::-webkit-inner-spin-button {
   width: 50%;
   margin-left: 25%;
   background-color: transparent;
+  border-radius: 2px;
   border: 1px solid white;
   color: white;
   transition: all 0.2s;
@@ -129,9 +130,6 @@ input::-webkit-inner-spin-button {
 }
 #input_add:hover {
   background-color: rgb(169, 206, 206);
-  outline: none;
-  border-color: #ffffff;
-  box-shadow: 0 0 10px #ffffff;
 }
 #input_add:active {
   background-color: rgb(78, 153, 153);
@@ -144,6 +142,7 @@ input::-webkit-inner-spin-button {
 #profit-button-2 {
   width: 41%;
   border: 1px solid rgba(255, 255, 255, 0.74);
+  border-radius: 2px;
   transition: all 0.2s;
   align-items: center;
 }

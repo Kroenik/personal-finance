@@ -12,7 +12,7 @@
       </header>
       <main>
         <div id="input">
-          <h3>Your money</h3>
+          <h3>Your money.</h3>
           <table id="total-table"></table>
           <h4>Add Transaction</h4>
           <button onclick="setExpense()" id="expense-button" class="expense-button-on">Expense</button>
@@ -22,8 +22,6 @@
             <input class="transaction-input" type="number" name="amount" placeholder="00.00€" id="input_amount" /> <br />
             <input class="transaction-input" type="text" id="input_category" list="category-options" placeholder="category..." />
             <datalist id="category-options"></datalist>
-            <!-- <select name="category" id="input_category"> -->
-            <!-- </select> -->
             <input type="button" value="add" id="input_add" onclick="addTransaction()" />
           </form>
         </div>
