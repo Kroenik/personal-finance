@@ -63,6 +63,9 @@ h4 {
   text-align: center;
   padding-bottom: 1rem;
 }
+#month {
+  padding-bottom: 0;
+}
 
 /* Overview-Page START*/
 
@@ -84,6 +87,10 @@ main {
 }
 
 /* Input Left-Side*/
+
+#hidden_date {
+  display: none;
+}
 
 #total-table {
   margin-left: 15%;
@@ -108,6 +115,7 @@ th {
 #expense-button,
 #profit-button,
 #input_title,
+#input_date,
 #input_amount,
 #input_category,
 #input_add {
@@ -304,6 +312,65 @@ input::-webkit-inner-spin-button {
   position: absolute;
   right: 2em;
   grid-area: logout;
+}
+
+#dateform,
+#datebuttons {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#datebuttons {
+  margin-bottom: 15px;
+}
+
+.datebutton {
+  background-color: transparent;
+  border-radius: 2px;
+  border: 1px solid white;
+  color: white;
+  transition: all 0.2s;
+  align-items: center;
+  cursor: pointer;
+}
+
+.datebutton:hover {
+  background-color: rgb(169, 206, 206);
+}
+.datebutton:active {
+  background-color: rgb(78, 153, 153);
+}
+
+#datebutleft {
+  margin-right: 15px;
+}
+
+#datebutright {
+  margin-left: 15px;
+}
+
+select {
+  outline: none;
+  font-size: large;
+  border: none;
+  border-bottom: 2px solid white;
+  background: rgba(0, 0, 0, 0);
+  color: white;
+  -webkit-appearance: none;
+}
+
+select:active {
+  background-color: rgb(78, 153, 153);
+}
+
+#input_day {
+  margin-right: 15px;
+}
+
+#input_year {
+  margin-left: 15px;
 }
 
 @media only screen and (max-width: 800px) {
