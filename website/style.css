@@ -153,6 +153,7 @@ p {
   text-align: center;
   font-size: 0.5em;
   margin-top: 1.5em;
+  width: 120px;
 }
 
 #reg-button:hover {
