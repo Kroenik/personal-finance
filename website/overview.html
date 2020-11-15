@@ -29,44 +29,43 @@
           <h4>Add Transaction</h4>
           <button onclick="setExpense()" id="expense-button" class="expense-button-on">Expense</button>
           <button onclick="setProfit()" id="profit-button" class="e-p-button" class="profit-button-off">Profit</button>
+          <div id="dateform">
+            <select name="year" id="input_year">
+              <option value="2015">2015</option>
+              <option value="2016">2016</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020" selected>2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+              <option value="2029">2029</option>
+              <option value="2030">2030</option>
+            </select>
+            <select name="month" id="input_month" onchange="setDayDropdown(document.getElementById('input_month').value)">
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11" selected>November</option>
+              <option value="12">December</option>
+            </select>
+            <select name="day" id="input_day"></select>
+          </div>
           <form action="./overview.html">
             <input class="transaction-input" type="text" name="title" placeholder="title..." id="input_title" /> <br />
-            <div id="dateform">
-              <select name="year" id="input_year">
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-                <option value="2018">2018</option>
-                <option value="2019">2019</option>
-                <option value="2020" selected>2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-                <option value="2026">2026</option>
-                <option value="2027">2027</option>
-                <option value="2028">2028</option>
-                <option value="2029">2029</option>
-                <option value="2030">2030</option>
-              </select>
-              <select name="month" id="input_month" onchange="setDayDropdown(document.getElementById('input_month').value)">
-                <option value="01">January</option>
-                <option value="02">February</option>
-                <option value="03">March</option>
-                <option value="04">April</option>
-                <option value="05">May</option>
-                <option value="06">June</option>
-                <option value="07">July</option>
-                <option value="08">August</option>
-                <option value="09">September</option>
-                <option value="10">October</option>
-                <option value="11" selected>November</option>
-                <option value="12">December</option>
-              </select>
-              <select name="day" id="input_day"></select>
-            </div>
-            <!-- <input class="transaction-input" type="date" name="date" placeholder="yyyy-mm-dd" id="input_date" /> <br /> -->
             <input class="transaction-input" type="number" name="amount" placeholder="00.00€" id="input_amount" /> <br />
             <input class="transaction-input" type="text" id="input_category" list="category-options" placeholder="category..." />
             <datalist id="category-options"></datalist>
@@ -76,8 +75,10 @@
         <div id="statistics">
           <div id="categories-side">
             <h4>Categories</h4>
-            <button onclick="groupExpenseCategoryByMonth(document.getElementById('hidden_date').textContent)" id="expense-button-2" class="expense-button-on">Expense</button>
-            <button onclick="groupProfitCategoryByMonth(document.getElementById('hidden_date').textContent)" id="profit-button-2" class="profit-button-off">Profit</button>
+            <!-- <button onclick="groupExpenseCategoryByMonth(document.getElementById('hidden_date').textContent)" id="expense-button-2" class="expense-button-on">Expense</button>
+            <button onclick="groupProfitCategoryByMonth(document.getElementById('hidden_date').textContent)" id="profit-button-2" class="profit-button-off">Profit</button> -->
+            <button onclick="groupAmountByExpenseCategory(getUserTransactionsByMonth(document.getElementById('hidden_date').textContent))" id="expense-button-2" class="expense-button-on">Expense</button>
+            <button onclick="groupAmountByProfitCategory(getUserTransactionsByMonth(document.getElementById('hidden_date').textContent))" id="profit-button-2" class="profit-button-off">Profit</button>
             <div id="categories" class="scrollable"></div>
           </div>
           <div id="transactions-side">

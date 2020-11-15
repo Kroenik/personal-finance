@@ -16,12 +16,16 @@ async function getUserTransactions() {
   return userTransactions;
 }
 
-async function getUserTransactionsByMonth(startDate, endDate) {
+async function getUserTransactionsByMonth(date) {
+  const currentDate = new Date(date);
+  const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+  const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+
   const allUserTransactions = await getUserTransactions();
   let userTransactionsByMonth = [];
   allUserTransactions.forEach((transaction) => {
     const transactionDate = new Date(transaction.date);
-    if (transactionDate >= startDate && transactionDate <= endDate) {
+    if (transactionDate >= startOfMonth && transactionDate <= endOfMonth) {
       userTransactionsByMonth.push(transaction);
     }
   });
@@ -82,7 +86,7 @@ function createTransaction(data) {
   return transactionDiv;
 }
 
-function addTransaction(event) {
+function addTransaction() {
   const inputData = document.forms[0].elements;
   const inputTitle = inputData["input_title"].value;
   const inputType = typeInput;
@@ -126,7 +130,6 @@ function addTransaction(event) {
     date: inputDate,
   });
 }
-//}
 
 async function postTransactionToJson(obj) {
   const res = await fetch("http://localhost:3000/transactions", {
@@ -139,7 +142,7 @@ async function postTransactionToJson(obj) {
     body: JSON.stringify(obj),
   });
 
-  showSpezificMonth(obj.date); //Monat der Eingabe übergeben
+  showSpezificMonth(obj.date);
 }
 
 async function deleteTransactionFromJson(id, date) {
@@ -151,12 +154,12 @@ async function deleteTransactionFromJson(id, date) {
     },
   });
 
-  showSpezificMonth(date); //aktuelle Anzeige lassen
+  showSpezificMonth(date);
 }
 
 async function updateAllData(date) {
-  const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-  const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1); //vielleicht auslagern
+  //const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  //const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1); //vielleicht auslagern
 
   const currentTransactions = document.querySelector("#transactions");
   const currentCategories = document.querySelector("#categories");
@@ -165,7 +168,7 @@ async function updateAllData(date) {
   clearChildren(currentCategories);
   clearChildren(currentBalance);
 
-  const updatedTransactions = getUserTransactionsByMonth(startOfMonth, endOfMonth);
+  const updatedTransactions = getUserTransactionsByMonth(date);
   transactionsToUI(updatedTransactions);
   groupAmountByExpenseCategory(updatedTransactions);
   displayBalance(await getUserTransactions());
@@ -436,28 +439,16 @@ function displayMonth(date) {
   document.getElementById("hidden_date").textContent = date;
 }
 
-function groupProfitCategoryByMonth(date) {
-  const currentDate = new Date(date);
-  const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-  const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+// function groupProfitCategoryByMonth(date) {
+//   //const userTransactionsByMonth = getUserTransactionsByMonth(date);
+//   //groupAmountByProfitCategory(userTransactionsByMonth);
 
-  const userTransactionsByMonth = getUserTransactionsByMonth(startOfMonth, endOfMonth);
-  groupAmountByProfitCategory(userTransactionsByMonth);
-}
-function groupExpenseCategoryByMonth(date) {
-  const currentDate = new Date(date);
-  const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-  const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+//   groupAmountByProfitCategory(getUserTransactionsByMonth(date));
+// }
+// function groupExpenseCategoryByMonth(date) {
 
-  const userTransactionsByMonth = getUserTransactionsByMonth(startOfMonth, endOfMonth);
-  groupAmountByExpenseCategory(userTransactionsByMonth);
-}
-
-//let typeInput = false;
-
-// transactionsToUI(getUserTransactions(startOfCurrentMonth, endOfCurrentMonth));
-// groupAmountByExpenseCategory(getUserTransactions(startOfCurrentMonth, endOfCurrentMonth));
-// displayBalance(getUserTransactions(startOfCurrentMonth, endOfCurrentMonth));
-//setExpense();
+//   const userTransactionsByMonth = getUserTransactionsByMonth(date);
+//   groupAmountByExpenseCategory(userTransactionsByMonth);
+// }
 
 showCurrentMonth();
