@@ -100,7 +100,6 @@ function addTransaction() {
     if (!inputTitle) throw "The title is missing.";
     if (inputTitle.length > 30) throw "The title is too long (max=30digits).";
     if (!inputDate) throw "The date is missing.";
-    // if (!/\d{4}-\d{2}-\d{2}/.test(inputDate)) throw "The date format is wrong. -> Format: YYYY-MM-DD";
     if (!inputAmount) throw "The amount is missing.";
     inputAmountNumber = Number(inputAmount);
     if (inputAmountNumber < 0) throw "The amount can't be negativ.";
@@ -110,11 +109,7 @@ function addTransaction() {
     alert("Error: " + err);
     return;
   }
-  // if (!inputTitle || !inputAmount) {
-  //   alert("Watch out! - The title and/or amount is missing.");
-  // } else if (inputTitle.length > 20) {
-  //   alert("Watch out! - The title is too long (max=20digits).");
-  // } else {
+
   if (inputType) {
     amount = inputAmount;
   } else {
@@ -158,9 +153,6 @@ async function deleteTransactionFromJson(id, date) {
 }
 
 async function updateAllData(date) {
-  //const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-  //const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1); //vielleicht auslagern
-
   const currentTransactions = document.querySelector("#transactions");
   const currentCategories = document.querySelector("#categories");
   const currentBalance = document.querySelector("#total-table");
@@ -438,17 +430,5 @@ function displayMonth(date) {
   document.getElementById("month").textContent = date.getFullYear() + " " + months[date.getMonth()];
   document.getElementById("hidden_date").textContent = date;
 }
-
-// function groupProfitCategoryByMonth(date) {
-//   //const userTransactionsByMonth = getUserTransactionsByMonth(date);
-//   //groupAmountByProfitCategory(userTransactionsByMonth);
-
-//   groupAmountByProfitCategory(getUserTransactionsByMonth(date));
-// }
-// function groupExpenseCategoryByMonth(date) {
-
-//   const userTransactionsByMonth = getUserTransactionsByMonth(date);
-//   groupAmountByExpenseCategory(userTransactionsByMonth);
-// }
 
 showCurrentMonth();

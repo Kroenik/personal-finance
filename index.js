@@ -33,12 +33,9 @@ app.post("/users", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  //create user object with request data
   const user = { username: req.body.username, password: crypto.pbkdf2Sync(req.body.password, "qwertzuioplkjhgfdsayxcvbnm", 100000, 64, "sha512").toString("hex") };
   fs.readFile(usersFilePath, (err, buffer) => {
-    //get registered user from json
     let regUsers = JSON.parse(buffer.toString());
-    //check if there is matching username and password with input data
     let matchingData = regUsers.filter((regUser) => regUser.username === user.username && regUser.password === user.password);
     if (matchingData.length >= 1) {
       const token = jwt.sign({ user: user }, "secretkey");
@@ -81,7 +78,6 @@ app.delete("/transactions/:id", verifyToken, (req, res) => {
   });
 });
 
-//verify Token
 function verifyToken(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
