@@ -40,8 +40,8 @@ button {
 
 #transmo {
   color: white;
-  margin-left: 2em;
   display: inline-block;
+  margin-left: 2em;
   font-size: 2em;
   letter-spacing: 5px;
 }
@@ -88,6 +88,10 @@ main {
 
 /* Input Left-Side*/
 
+#hidden_date {
+  display: none;
+}
+
 #total-table {
   margin-left: 15%;
   margin-bottom: 3rem;
@@ -111,6 +115,7 @@ th {
 #expense-button,
 #profit-button,
 #input_title,
+#input_date,
 #input_amount,
 #input_category,
 #input_add {

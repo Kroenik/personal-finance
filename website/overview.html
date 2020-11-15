@@ -14,12 +14,36 @@
       <main>
         <div id="input">
           <h3>Your money.</h3>
+          <h4 id="month"></h4>
+          <div id="hidden_date"></div>
+          <button onclick="showPreviousMonth(document.getElementById('hidden_date').textContent)">previous</button>
+          <button onclick="showNextMonth(document.getElementById('hidden_date').textContent)">next</button>
+          <button onclick="selectCurrentMonth()">reset</button>
           <table id="total-table"></table>
           <h4>Add Transaction</h4>
           <button onclick="setExpense()" id="expense-button" class="expense-button-on">Expense</button>
           <button onclick="setProfit()" id="profit-button" class="e-p-button" class="profit-button-off">Profit</button>
           <form action="./overview.html">
             <input class="transaction-input" type="text" name="title" placeholder="title..." id="input_title" /> <br />
+            <div>
+              <select name="day" id="input_day"></select>
+              <select name="month" id="input_month" onchange="setDayDropdown(document.getElementById('input_month').value)">
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+              </select>
+              <select name="year" id="input_year"></select>
+            </div>
+            <!-- <input class="transaction-input" type="date" name="date" placeholder="yyyy-mm-dd" id="input_date" /> <br /> -->
             <input class="transaction-input" type="number" name="amount" placeholder="00.00€" id="input_amount" /> <br />
             <input class="transaction-input" type="text" id="input_category" list="category-options" placeholder="category..." />
             <datalist id="category-options"></datalist>
@@ -29,8 +53,8 @@
         <div id="statistics">
           <div id="categories-side">
             <h4>Categories</h4>
-            <button onclick="groupAmountByExpenseCategory(getUserTransactions());" id="expense-button-2" class="expense-button-on">Expense</button>
-            <button onclick="groupAmountByProfitCategory(getUserTransactions());" id="profit-button-2" class="profit-button-off">Profit</button>
+            <button onclick="groupExpenseCategoryByMonth(document.getElementById('hidden_date').textContent)" id="expense-button-2" class="expense-button-on">Expense</button>
+            <button onclick="groupProfitCategoryByMonth(document.getElementById('hidden_date').textContent)" id="profit-button-2" class="profit-button-off">Profit</button>
             <div id="categories" class="scrollable"></div>
           </div>
           <div id="transactions-side">
