@@ -299,6 +299,7 @@ input::-webkit-inner-spin-button {
   color: white;
   display: block;
 }
+
 #logout {
   position: absolute;
   right: 2em;

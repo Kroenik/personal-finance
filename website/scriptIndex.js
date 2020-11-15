@@ -13,8 +13,8 @@ async function registerUser(event) {
   let reppassword = document.querySelector("#rep-password").value;
   if (!username) {
     alert("Please provide a username");
-  } else if (!password || password.length < 6) {
-    alert("Please provide a password with at least 6 characters.");
+  } else if (!password || password.length < 8 || !passwordContainsNumber(password)) {
+    alert("Please provide a password with at least 8 characters and at least containing one number.");
   } else if (reppassword !== password) {
     alert("Password is not matching the repetition password, please repeat");
     document.querySelector("#reg-password").value = "";
@@ -85,4 +85,8 @@ function regOnEnter(event) {
     event.preventDefault();
     document.getElementById("reg-button").click();
   }
+}
+
+function passwordContainsNumber(password) {
+  return /\d/.test(password);
 }
