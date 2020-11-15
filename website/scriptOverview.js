@@ -86,7 +86,8 @@ function addTransaction(event) {
   const inputData = document.forms[0].elements;
   const inputTitle = inputData["input_title"].value;
   const inputType = typeInput;
-  const inputDate = inputData["input_date"].value;
+  const inputDate = document.getElementById("input_year").value + "-" + document.getElementById("input_month").value + "-" + document.getElementById("input_day").value;
+  console.log(inputDate);
   const inputAmount = inputData["input_amount"].value;
   const inputCategory = inputData["input_category"].value;
   const transactionId = generateId();
@@ -95,7 +96,7 @@ function addTransaction(event) {
     if (!inputTitle) throw "The title is missing.";
     if (inputTitle.length > 30) throw "The title is too long (max=30digits).";
     if (!inputDate) throw "The date is missing.";
-    if (!/\d{4}-\d{2}-\d{2}/.test(inputDate)) throw "The date format is wrong. -> Format: YYYY-MM-DD";
+    // if (!/\d{4}-\d{2}-\d{2}/.test(inputDate)) throw "The date format is wrong. -> Format: YYYY-MM-DD";
     if (!inputAmount) throw "The amount is missing.";
     inputAmountNumber = Number(inputAmount);
     if (inputAmountNumber < 0) throw "The amount can't be negativ.";
@@ -156,8 +157,6 @@ async function deleteTransactionFromJson(id, date) {
 async function updateAllData(date) {
   const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
   const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1); //vielleicht auslagern
-  console.log(startOfMonth);
-  console.log(endOfMonth);
 
   const currentTransactions = document.querySelector("#transactions");
   const currentCategories = document.querySelector("#categories");
@@ -172,6 +171,7 @@ async function updateAllData(date) {
   displayBalance(await getUserTransactions());
   displayTotalExpenseAndProfit(updatedTransactions);
   setExpense();
+  setDayDropdown(date.getMonth() + 1);
 }
 
 function clearChildren(element) {
@@ -203,19 +203,16 @@ function setDayDropdown(month) {
   const daysShort = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"];
   const daysLong = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
 
-  if (month === "February") {
+  month = parseInt(month);
+
+  if (month === 2) {
     switchDropdownOptionsTo(daysFeb, "#input_day");
-  } else if (month === "April" || month === "June" || month === "September" || month === "November") {
+  } else if (month === 04 || month === 06 || month === 09 || month === 11) {
     switchDropdownOptionsTo(daysShort, "#input_day");
-  } else if (month === "January" || month === "March" || month === "May" || month === "July" || month === "August" || month === "October" || month === "December") {
+  } else if (month === 01 || month === 03 || month === 05 || month === 07 || month === 08 || month === 10 || month === 12) {
     switchDropdownOptionsTo(daysLong, "#input_day");
   }
-
-  // if (month === "February") {
-  //   document.getElementById("30").style.display = "none";
-  //   //document.getElementById("30").remove();
-  //   document.getElementById("31").remove();
-  //}
+  document.getElementById("input_month").selectedIndex = month - 1;
 }
 
 function setExpense() {
@@ -353,9 +350,7 @@ async function displayBalance(allTransactions) {
 }
 
 async function displayTotalExpenseAndProfit(transactions) {
-  //balance soll auf ganzen Zeitraum bleiben (neue funktion)
   let userTransactions = await transactions;
-  //let totalBalance = 0;
   let totalProfit = 0;
   let totalExpense = 0;
 
@@ -367,15 +362,12 @@ async function displayTotalExpenseAndProfit(transactions) {
       totalProfit += amount;
     }
   });
-  //totalBalance = totalExpense + totalProfit;
 
   const totalTable = document.querySelector("#total-table");
 
-  //const balanceRow = createTableRow("Balance", totalBalance);
   const expenseRow = createTableRow("Expense", totalExpense);
   const profitRow = createTableRow("Profit", totalProfit);
 
-  //totalTable.appendChild(balanceRow);
   totalTable.appendChild(expenseRow);
   totalTable.appendChild(profitRow);
 }
