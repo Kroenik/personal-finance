@@ -90,3 +90,10 @@ function regOnEnter(event) {
 function passwordContainsNumber(password) {
   return /\d/.test(password);
 }
+
+document.getElementById("reg-form").onkeypress = function (e) {
+  var key = e.charCode || e.keyCode || 0;
+  if (key == 13) {
+    e.preventDefault();
+  }
+};
